@@ -7,7 +7,16 @@
   "types": "./dist/esm/index.d.ts",
   "type": "module",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev": "tsc -w --outDir dist/esm & node --watch .",
+    "start": "node .",
+    "lint": "eslint ./src",
+    "build": "rimraf dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test && npm run lint"
+  },
   "files": [
     "dist",
     "LICENSE",

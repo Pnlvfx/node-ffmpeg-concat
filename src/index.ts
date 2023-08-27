@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 import { initFrames } from './helpers/init-frames.js';
 import path from 'path';
 import rmfr from 'rmfr';
-import { renderFrames } from './helpers/render-frames';
+import { renderFrames } from './helpers/render-frames.js';
 
 const noop = () => { };
 

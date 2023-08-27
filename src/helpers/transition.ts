@@ -1,10 +1,11 @@
 import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d'
-import createTransition from 'gl-transition'
 import { getPixelsFn } from './get-pixels.js'
-import transitions from 'gl-transitions'
+import transitions from 'gl-transition'
 
-module.exports = (opts) => {
+console.log(transitions);
+
+export const createTransitionfn = (opts) => {
     const {
         name = 'directionalwarp',
         resizeMode = 'stretch',

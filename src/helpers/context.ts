@@ -1,6 +1,6 @@
 import GL from 'gl';
 import { createFrameWriter } from './frame-writer.js';
-const createTransition = require('./transition')
+import { createTransitionfn } from './transition.js'
 
 export const createContext = async (opts) => {
   const {
@@ -45,7 +45,7 @@ export const createContext = async (opts) => {
       ctx.transition = null
     }
 
-    ctx.transition = createTransition({
+    ctx.transition = createTransitionfn({
       gl,
       name,
       resizeMode

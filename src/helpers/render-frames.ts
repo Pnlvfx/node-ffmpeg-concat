@@ -18,7 +18,7 @@ export const renderFrames = async (opts) => {
   })
 
   await pMap(frames, (frame, index) => {
-    return module.exports.renderFrame({
+    return renderFrame({
       ctx,
       frame,
       frameFormat,
@@ -38,7 +38,7 @@ export const renderFrames = async (opts) => {
   return framePattern
 }
 
-module.exports.renderFrame = async (opts) => {
+export const renderFrame = async (opts) => {
   const {
     ctx,
     frame,
