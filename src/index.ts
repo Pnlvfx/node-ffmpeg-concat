@@ -5,8 +5,9 @@ import fs from 'fs-extra';
 import { initFrames } from './helpers/init-frames.js';
 import path from 'path';
 import rmfr from 'rmfr';
+import { renderFrames } from './helpers/render-frames';
 
-const noop = () => {};
+const noop = () => { };
 
 const concat = async (opts: ConcatOptions) => {
   const {
@@ -47,6 +48,9 @@ const concat = async (opts: ConcatOptions) => {
     console.timeEnd('init-frames');
 
     console.time('render-frames');
+    const framePatterns = await renderFrames({
+
+    })
 
     console.log(frames, scenes, theme);
   } catch (err) {

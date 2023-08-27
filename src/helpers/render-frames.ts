@@ -1,9 +1,9 @@
 import fs from 'fs-extra';
 import path from 'node:path'
 import pMap from 'p-map';
-import {createContext} from './context.js';
+import { createContext } from './context.js';
 
-module.exports = async (opts) => {
+export const renderFrames = async (opts) => {
   const {
     frameFormat,
     frames,

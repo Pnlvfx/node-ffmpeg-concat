@@ -1,6 +1,5 @@
 import GL from 'gl';
-
-const createFrameWriter = require('./frame-writer')
+import { createFrameWriter } from './frame-writer.js';
 const createTransition = require('./transition')
 
 export const createContext = async (opts) => {
@@ -18,7 +17,6 @@ export const createContext = async (opts) => {
 
   if (!gl) {
     console.error('Failed to create OpenGL context. Please see https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions for compatibility.')
-
     throw new Error('failed to create OpenGL context')
   }
 
