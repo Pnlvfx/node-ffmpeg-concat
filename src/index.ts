@@ -6,6 +6,7 @@ import { initFrames } from './helpers/init-frames.js';
 import path from 'path';
 import rmfr from 'rmfr';
 import { renderFrames } from './helpers/render-frames.js';
+import { temporaryDirectory, temporaryFile } from 'tempy';
 
 const noop = () => { };
 
@@ -28,7 +29,7 @@ const concat = async (opts: ConcatOptions) => {
     fs.ensureDirSync(tempDir);
   }
 
-  const temp = tempDir || './media';
+  const temp = tempDir || temporaryDirectory();
 
   console.time('ffmpeg-concat');
 
@@ -49,8 +50,18 @@ const concat = async (opts: ConcatOptions) => {
 
     console.time('render-frames');
     const framePatterns = await renderFrames({
-
+      log,
+      concurrency,
+      outputDir: temp,
+      frames,
+      theme,
+      onProgress: (p) => {
+        log(`render ${(100 * p).toFixed()}%`)
+      }
     })
+    console.timeEnd('render-frames')
+
+    // console.time('render-audio')
 
     console.log(frames, scenes, theme);
   } catch (err) {
@@ -74,4 +85,4 @@ const getFile = (file: string) => path.join(process.cwd(), file);
 
 const videos = [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')];
 
-concat({ videos, output: './media/temp.mp4', transition: { name: 'directionalWipe', duration: 500 } });
+concat({ videos, output: temporaryFile({ extension: 'mp4' }), transition: { name: 'directionalWipe', duration: 500 } });

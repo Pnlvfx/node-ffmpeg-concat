@@ -2,7 +2,15 @@ import GL from 'gl';
 import { createFrameWriter } from './frame-writer.js';
 import { createTransitionfn } from './transition.js'
 
-export const createContext = async (opts) => {
+interface ContextOpts {
+  frameFormat: string;
+  theme: {
+    width: number;
+    height: number;
+  }
+}
+
+export const createContext = async (opts: ContextOpts) => {
   const {
     frameFormat,
     theme

@@ -1,7 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable sonarjs/cognitive-complexity */
-/* eslint-disable unicorn/explicit-length-check */
-/* eslint-disable unicorn/prefer-number-properties */
 import pMap from 'p-map';
 import ffmpegProbe from 'ffmpeg-probe';
 import path from 'node:path';
@@ -11,7 +7,7 @@ import { InitFramesOptions, InitSceneOptions } from '../types';
 import { extractAudio } from './extract-audio.js';
 
 export const initFrames = async (opts: InitFramesOptions) => {
-  const { transitions, videos, concurrency, frameFormat, log, outputDir, renderAudio, transition, verbose } = opts;
+  const { transitions, videos, concurrency, frameFormat, log, outputDir, renderAudio = false, transition, verbose } = opts;
 
   if (transitions && videos.length - 1 !== transitions.length) {
     throw new Error('Number of transitions must equal number of videos minus one');
@@ -82,20 +78,21 @@ export const initFrames = async (opts: InitFramesOptions) => {
 export const initScene = async (opts: InitSceneOptions) => {
   const { frameFormat, index, log, outputDir, renderAudio, transition, transitions, verbose, videos } = opts;
 
-  const video = videos[index];
+  const video = videos.at(index);
+  if (!video) throw new Error('KKKerror at init-frames')
   const probe = await ffmpegProbe(video);
-  const format = (probe.format && probe.format.format_name) || 'unknown';
+  const format: string = (probe.format && probe.format.format_name) || 'unknown';
 
   if (!probe.streams || !probe.streams.at(0)) throw new Error(`Unsupported input video format "${format}": ${video}`);
 
   const scene = {
     video,
     index,
-    width: probe.width,
-    height: probe.height,
-    duration: probe.duration,
-    numFrames: parseInt(probe.streams[0].nb_frames),
-    fps: probe.fps,
+    width: probe.width as number,
+    height: probe.height as number,
+    duration: probe.duration as number,
+    numFrames: parseInt(probe.streams.at(0).nb_frames),
+    fps: probe.fps as number,
   };
 
   if (isNaN(scene.numFrames) || isNaN(scene.duration)) throw new Error(`Unsupported input video format "${format}": ${video}`);
@@ -105,6 +102,7 @@ export const initScene = async (opts: InitSceneOptions) => {
   }
 
   const t = transitions ? transitions[index] : transition;
+
   scene.transition = {
     name: 'fade',
     duration: 500,

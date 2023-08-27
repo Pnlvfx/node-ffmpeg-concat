@@ -1,5 +1,11 @@
 import ffmpeg from 'fluent-ffmpeg';
-import { ExtractVideoFramesOpts } from '../types';
+import { Writable } from 'stream';
+
+interface ExtractVideoFramesOpts {
+  videoPath: string;
+  framePattern: string | Writable;
+  verbose?: boolean;
+}
 
 export const extractVideoFrames = (opts: ExtractVideoFramesOpts) => {
   const { framePattern, verbose, videoPath } = opts;

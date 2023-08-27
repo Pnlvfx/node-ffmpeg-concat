@@ -3,7 +3,11 @@ import path from 'node:path'
 import pMap from 'p-map';
 import { createContext } from './context.js';
 
-export const renderFrames = async (opts) => {
+interface RenderFramesOpts {
+
+}
+
+export const renderFrames = async (opts: RenderFramesOpts) => {
   const {
     frameFormat,
     frames,

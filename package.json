@@ -7,6 +7,9 @@
   "types": "./dist/esm/index.d.ts",
   "type": "module",
   "license": "MIT",
+  "bin": {
+    "ffmpeg-concat": "dist/esm/cli.js"
+  },
   "scripts": {
     "dev": "tsc -w --outDir dist/esm & node --watch .",
     "start": "node .",
@@ -42,6 +45,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "commander": "^11.0.0",
     "ffmpeg-probe": "^1.0.6",
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^11.1.1",
@@ -50,8 +54,10 @@
     "gl-buffer": "^2.1.2",
     "gl-texture2d": "^2.1.0",
     "gl-transition": "^1.13.0",
+    "ndarray": "^1.0.19",
     "p-map": "^6.0.0",
     "rmfr": "^2.0.0",
-    "sharp": "^0.32.5"
+    "sharp": "^0.32.5",
+    "tempy": "^3.1.0"
   }
 }

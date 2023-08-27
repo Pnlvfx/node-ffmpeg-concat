@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Writable } from 'stream';
-
 export interface ConcatOptions {
   audio?: string | undefined;
   cleanupFrames?: boolean | undefined;
@@ -30,12 +28,6 @@ export interface ExtractAudioOpts {
   outputFileName: string;
   start: number;
   duration: number;
-}
-
-export interface ExtractVideoFramesOpts {
-  videoPath: string;
-  framePattern: string | Writable;
-  verbose: boolean;
 }
 
 export interface InitFramesOptions extends Omit<InitSceneOptions, 'index'> {
