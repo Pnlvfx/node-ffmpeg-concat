@@ -68,8 +68,6 @@ export const renderFrame = async (opts: RenderFrameOpts) => {
   const cFrame = index - current.frameStart;
   const cFramePath = current.getFrame(cFrame);
 
-  console.log(current.transition);
-
   if (next) {
     ctx.setTransition(current.transition);
 
