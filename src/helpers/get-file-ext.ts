@@ -1,4 +1,4 @@
-
+import parseUrl from 'url-parse'
 
 const extWhitelist = new Set([
     // videos
@@ -27,7 +27,7 @@ const extWhitelist = new Set([
 ])
 
 export const getFileExt = (url: string, opts = { strict: true }) => {
-    const { pathname } = new URL(url)
+    const { pathname } = parseUrl(url)
     const parts = pathname.split('.')
     const ext = (parts[parts.length - 1] || '').trim().toLowerCase()
 

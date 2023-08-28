@@ -1,9 +1,8 @@
+import createTransition from "gl-transition";
 import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d'
+import transitions from 'gl-transitions'
 import { getPixelsFn } from './get-pixels.js'
-import transitions from 'gl-transition'
-
-console.log(transitions);
 
 export const createTransitionfn = (opts) => {
     const {
@@ -22,7 +21,7 @@ export const createTransitionfn = (opts) => {
     const source = transitions.find(t => t.name.toLowerCase() === transitionName) ||
         transitions.find(t => t.name.toLowerCase() === 'fade')
 
-    const transition = createTransition(gl, source, {
+    const transition = createTransition.default(gl, source, {
         resizeMode
     })
 

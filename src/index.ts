@@ -1,14 +1,13 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable sonarjs/no-duplicate-string */
-import { ConcatOptions } from './types';
 import fs from 'fs-extra';
-import { initFrames } from './helpers/init-frames.js';
 import path from 'path';
 import rmfr from 'rmfr';
+import tempy from 'tempy';
+import { ConcatOptions } from './types';
+import { initFrames } from './helpers/init-frames.js';
 import { renderFrames } from './helpers/render-frames.js';
-import { temporaryDirectory, temporaryFile } from 'tempy';
 import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
+
 
 const noop = () => { };
 
@@ -32,7 +31,7 @@ const concat = async (opts: ConcatOptions) => {
     fs.ensureDirSync(tempDir);
   }
 
-  const temp = tempDir || temporaryDirectory();
+  const temp = tempDir || tempy.directory();
 
   console.time('ffmpeg-concat');
 
@@ -79,9 +78,6 @@ const concat = async (opts: ConcatOptions) => {
 
     console.time('transcode-video')
 
-    console.log({opts, frames, scenes, theme, framePattern, audio})
-
-    return
     await transcodeVideo({
       args,
       log,
@@ -117,6 +113,4 @@ const getFile = (file: string) => path.join(process.cwd(), file);
 
 const videos = [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')];
 
-console.log(videos);
-
-concat({ videos, output: temporaryFile({ extension: 'mp4' }), transition: { name: 'directionalWipe', duration: 500 } });
+concat({ videos, output: './media/temp.mp4', transition: { name: 'directionalWipe', duration: 500 } });

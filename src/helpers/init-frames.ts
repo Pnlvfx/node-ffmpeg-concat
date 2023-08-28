@@ -1,14 +1,14 @@
-import pMap from 'p-map';
 import ffmpegProbe from 'ffmpeg-probe';
-import path from 'node:path';
 import fs from 'fs-extra';
-import { extractVideoFrames } from './extract-video-frames.js';
-import { InitFramesOptions, InitSceneOptions } from '../types';
-import { extractAudio } from './extract-audio.js';
 import leftPad from 'left-pad';
+import path from 'node:path';
+import pMap from 'p-map';
+import { InitFramesOptions, InitSceneOptions } from '../types';
+import { extractVideoFrames } from './extract-video-frames.js';
+import { extractAudio } from './extract-audio.js';
 
 export const initFrames = async (opts: InitFramesOptions) => {
-  const { transitions, videos, concurrency, frameFormat, log, outputDir, renderAudio = false, transition, verbose } = opts;
+  const {concurrency, log, videos, transition, transitions, frameFormat, outputDir, renderAudio = false, verbose } = opts;
 
   if (transitions && videos.length - 1 !== transitions.length) {
     throw new Error('Number of transitions must equal number of videos minus one');
@@ -42,8 +42,8 @@ export const initFrames = async (opts: InitFramesOptions) => {
   scenes.forEach((scene, index) => {
     scene.frameStart = numFrames;
 
-    scene.numFramesTransition = Math.floor((scene.transition.duration * fps) / 1000);
-    scene.numFramesPreTransition = Math.max(0, scene.numFrames - scene.numFramesTransition);
+    scene.numFramesTransition = Math.floor((scene.transition.duration * fps) / 1000)
+    scene.numFramesPreTransition = Math.max(0, scene.numFrames - scene.numFramesTransition)
 
     numFrames += scene.numFramesPreTransition;
 
@@ -82,6 +82,7 @@ export const initScene = async (opts: InitSceneOptions) => {
   const video = videos.at(index);
   if (!video) throw new Error('KKKerror at init-frames')
   const probe = await ffmpegProbe(video);
+
   const format: string = (probe.format && probe.format.format_name) || 'unknown';
 
   if (!probe.streams || !probe.streams.at(0)) throw new Error(`Unsupported input video format "${format}": ${video}`);
@@ -126,7 +127,7 @@ export const initScene = async (opts: InitSceneOptions) => {
   });
 
   scene.getFrame = (frame) => {
-    return framePattern.replace('%012d', leftPad(framePattern, 12, '0'));
+    return framePattern.replace('%012d', leftPad(frame, 12, '0'));
   };
 
   while (scene.numFrames > 0) {

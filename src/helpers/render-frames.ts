@@ -1,9 +1,9 @@
 import fs from 'fs-extra';
 import path from 'node:path'
 import pMap from 'p-map';
-import { createContext } from './context.js';
-import { FrameFormat } from '../types/index.js';
 import leftPad from 'left-pad';
+import { FrameFormat } from '../types/index.js';
+import { createContext } from './context.js';
 
 interface RenderFramesOpts {
   frameFormat: FrameFormat;
