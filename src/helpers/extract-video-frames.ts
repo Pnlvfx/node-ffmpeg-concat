@@ -11,12 +11,13 @@ export const extractVideoFrames = (opts: ExtractVideoFramesOpts) => {
   const { videoPath, framePattern, verbose = false } = opts;
   return new Promise((resolve, reject) => {
     const cmd = ffmpeg(videoPath)
+      // eslint-disable-next-line prettier/prettier
       .outputOptions([ 
         '-loglevel', 'info',
         '-pix_fmt', 'rgba',
         '-start_number', '0'
-    ])
-    .output(framePattern)
+      ])
+      .output(framePattern)
       .on('start', (cmd) => console.log({ cmd }))
       .on('end', () => resolve(framePattern))
       .on('error', (err) => reject(err));

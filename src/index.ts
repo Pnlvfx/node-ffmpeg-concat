@@ -1,15 +1,16 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import fs from 'fs-extra';
 import path from 'path';
 import rmfr from 'rmfr';
-import {temporaryDirectory} from 'tempy';
-import { ConcatOptions } from './types';
+import { temporaryDirectory } from 'tempy';
 import { initFrames } from './helpers/init-frames.js';
 import { renderFrames } from './helpers/render-frames.js';
 import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
+import { ConcatOptions } from './types/index.js';
 
-
-const noop = () => { };
+// eslint-disable-next-line no-empty-function
+const noop = () => {};
 
 const concat = async (opts: ConcatOptions) => {
   const {
@@ -52,31 +53,29 @@ const concat = async (opts: ConcatOptions) => {
 
     console.time('render-frames');
     const framePattern = await renderFrames({
-      log,
-      concurrency,
       outputDir: temp,
       frameFormat,
       frames,
       theme,
       onProgress: (p) => {
-        log(`render ${(100 * p).toFixed()}%`)
-      }
-    })
-    console.timeEnd('render-frames')
+        log(`render ${(100 * p).toFixed(0)}%`);
+      },
+    });
+    console.timeEnd('render-frames');
 
-    console.time('render-audio')
+    console.time('render-audio');
     let concatAudioFile = audio;
     if (!audio && scenes.filter((s) => s.sourceAudioPath).length === scenes.length) {
       concatAudioFile = await renderAudio({
         log,
         scenes,
         outputDir: temp,
-        fileName: 'audioConcat.mp3'
-      })
+        fileName: 'audioConcat.mp3',
+      });
     }
-    console.timeEnd('render-audio')
+    console.timeEnd('render-audio');
 
-    console.time('transcode-video')
+    console.time('transcode-video');
 
     await transcodeVideo({
       args,
@@ -88,10 +87,10 @@ const concat = async (opts: ConcatOptions) => {
       theme,
       verbose,
       onProgress: (p) => {
-        log(`transcode ${(100 * p).toFixed()}%`)
-      }
-    })
-    console.timeEnd('transcode-video')
+        log(`transcode ${(100 * p).toFixed(0)}%`);
+      },
+    });
+    console.timeEnd('transcode-video');
   } catch (err) {
     if (cleanupFrames) {
       await rmfr(temp);

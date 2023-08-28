@@ -28,7 +28,6 @@
   "dependencies": {
     "commander": "^2.19.0",
     "ffmpeg-on-progress": "^1.0.0",
-    "ffmpeg-probe": "^1.0.6",
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^7.0.1",
     "get-pixels": "^3.3.3",
@@ -41,7 +40,7 @@
     "ndarray": "^1.0.19",
     "p-map": "^2.0.0",
     "rmfr": "^2.0.0",
-    "sharp": "^0.31.1",
+    "sharp": "^0.32.5",
     "tempy": "^3.1.0",
     "url-parse": "^1.4.4"
   },
@@ -52,6 +51,7 @@
     "@types/gl": "^6.0.2",
     "@types/gl-texture2d": "^2.1.4",
     "@types/node": "^20.5.6",
+    "@types/url-parse": "^1.4.8",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
     "eslint": "^8.47.0",

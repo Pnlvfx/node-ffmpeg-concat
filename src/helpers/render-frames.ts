@@ -1,93 +1,95 @@
 import fs from 'fs-extra';
-import path from 'node:path'
+import path from 'node:path';
 import pMap from 'p-map';
 import leftPad from 'left-pad';
 import { FrameFormat } from '../types/index.js';
-import { createContext } from './context.js';
+import { Context, createContext } from './context.js';
+import { Frame, OnProgress, Theme } from '../types/internal.js';
 
 interface RenderFramesOpts {
   frameFormat: FrameFormat;
-  frames: string[];
+  frames: Frame[];
   outputDir: string;
+  theme: Theme;
+  // eslint-disable-next-line no-unused-vars
+  onProgress: OnProgress;
 }
 
 export const renderFrames = async (opts: RenderFramesOpts) => {
-  const {
-    frameFormat,
-    frames,
-    onProgress,
-    outputDir,
-    theme
-  } = opts
+  const { frameFormat, frames, onProgress, outputDir, theme } = opts;
 
   const ctx = await createContext({
     frameFormat,
-    theme
-  })
+    theme,
+  });
 
-  await pMap(frames, (frame, index) => {
-    return renderFrame({
-      ctx,
-      frame,
-      frameFormat,
-      index,
-      onProgress,
-      outputDir,
-      theme
-    })
-  }, {
-    concurrency: 8
-  })
+  await pMap(
+    frames,
+    (frame, index) => {
+      return renderFrame({
+        ctx,
+        frame,
+        frameFormat,
+        index,
+        onProgress,
+        outputDir,
+        theme,
+      });
+    },
+    {
+      concurrency: 8,
+    },
+  );
 
-  await ctx.flush()
-  await ctx.dispose()
+  await ctx.flush();
+  await ctx.dispose();
 
-  const framePattern = path.join(outputDir, `%012d.${frameFormat}`)
-  return framePattern
+  return path.join(outputDir, `%012d.${frameFormat}`); // FRAMEPATTERN
+};
+
+interface RenderFrameOpts {
+  ctx: Context;
+  frame: Frame;
+  frameFormat: FrameFormat;
+  index: number;
+  onProgress: OnProgress;
+  outputDir: string;
+  theme: Theme;
 }
 
-export const renderFrame = async (opts) => {
-  const {
-    ctx,
-    frame,
-    frameFormat,
-    index,
-    onProgress,
-    outputDir,
-    theme
-  } = opts
+export const renderFrame = async (opts: RenderFrameOpts) => {
+  const { ctx, frame, frameFormat, index, onProgress, outputDir, theme } = opts;
 
-  const fileName = `${leftPad(index, 12, '0')}.${frameFormat}`
-  const filePath = path.join(outputDir, fileName)
+  const fileName = `${leftPad(index, 12, '0')}.${frameFormat}`;
+  const filePath = path.join(outputDir, fileName);
 
-  const {
-    current,
-    next
-  } = frame
+  const { current, next } = frame;
 
-  const cFrame = index - current.frameStart
-  const cFramePath = current.getFrame(cFrame)
+  const cFrame = index - current.frameStart;
+  const cFramePath = current.getFrame(cFrame);
 
-  if (!next) {
-    await fs.move(cFramePath, filePath, { overwrite: true })
-  } else {
-    ctx.setTransition(current.transition)
+  console.log(current.transition);
 
-    const nFrame = index - next.frameStart
-    const nFramePath = next.getFrame(nFrame)
-    const cProgress = (cFrame - current.numFramesPreTransition) / current.numFramesTransition
+  if (next) {
+    ctx.setTransition(current.transition);
+
+    const nFrame = index - next.frameStart;
+    const nFramePath = next.getFrame(nFrame);
+    const cProgress = (cFrame - current.numFramesPreTransition) / current.numFramesTransition;
 
     await ctx.render({
       imagePathFrom: cFramePath,
       imagePathTo: nFramePath,
       progress: cProgress,
-      params: current.transition.params
-    })
+      params: current.transition.params,
+    });
 
-    await ctx.capture(filePath)
+    await ctx.capture(filePath);
+  } else {
+    await fs.move(cFramePath, filePath, { overwrite: true });
   }
 
   if (onProgress && index % 16 === 0) {
-    onProgress(index / theme.numFrames)
+    onProgress(index / theme.numFrames);
   }
-}
+};

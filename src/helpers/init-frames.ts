@@ -1,15 +1,18 @@
-import ffmpegProbe from 'ffmpeg-probe';
+/* eslint-disable unicorn/explicit-length-check */
+/* eslint-disable unicorn/no-array-reduce */
+/* eslint-disable sonarjs/cognitive-complexity */
 import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs-extra';
 import leftPad from 'left-pad';
 import path from 'node:path';
 import pMap from 'p-map';
-import { InitFramesOptions, InitSceneOptions, Transition } from '../types';
+import { InitFramesOptions, InitSceneOptions } from '../types';
 import { extractVideoFrames } from './extract-video-frames.js';
 import { extractAudio } from './extract-audio.js';
+import { InitialScene, Scene } from '../types/internal';
 
 export const initFrames = async (opts: InitFramesOptions) => {
-  const {concurrency, log, videos, transition, transitions, frameFormat, outputDir, renderAudio = false, verbose } = opts;
+  const { concurrency, log, videos, transition, transitions, frameFormat, outputDir, renderAudio = false, verbose } = opts;
 
   if (transitions && videos.length - 1 !== transitions.length) {
     throw new Error('Number of transitions must equal number of videos minus one');
@@ -40,11 +43,16 @@ export const initFrames = async (opts: InitFramesOptions) => {
   const frames = [];
   let numFrames = 0;
 
-  scenes.forEach((scene, index) => {
+  for (const [index, scene] of scenes.entries()) {
     scene.frameStart = numFrames;
 
-    scene.numFramesTransition = Math.floor((scene.transition.duration * fps) / 1000)
-    scene.numFramesPreTransition = Math.max(0, scene.numFrames - scene.numFramesTransition)
+    if (!scene.transition) {
+      console.log('Missing transition on this scene', scene);
+      throw new Error(`Missing transition on this scene: ${scene}`);
+    }
+
+    scene.numFramesTransition = Math.floor((scene.transition.duration * fps) / 1000);
+    scene.numFramesPreTransition = Math.max(0, scene.numFrames - scene.numFramesTransition);
 
     numFrames += scene.numFramesPreTransition;
 
@@ -60,9 +68,12 @@ export const initFrames = async (opts: InitFramesOptions) => {
         };
       }
     }
-  })
+  }
 
-  const duration = scenes.reduce((sum, scene) => scene.duration + sum - scene.transition.duration, 0);
+  const duration = scenes.reduce((sum, scene) => {
+    if (!scene.transition) throw new Error('No transition found!');
+    return scene.duration + sum - scene.transition.duration;
+  }, 0);
 
   return {
     frames,
@@ -77,42 +88,39 @@ export const initFrames = async (opts: InitFramesOptions) => {
   };
 };
 
-interface Scene {
-  video: string;
-  index: number;
-  width: number;
-  height: number;
-  duration: number;
-  numFrames: number;
-  fps: number;
-  transition?: Transition;
-  getFrame?: (frame: number) => string;
-  [key: string]: any;
-}
-
 const initScene = async (opts: InitSceneOptions) => {
   const { frameFormat, index, log, outputDir, renderAudio, transition, transitions, verbose, videos } = opts;
 
   const video = videos.at(index);
-  if (!video) throw new Error('Error at init-frames')
-  const probe = await ffmpegProbe(video);
-  const fluentProbe = await ffprobeAsync(video);
+  if (!video) throw new Error('Error at init-frames');
+  const probe = await ffprobeAsync(video);
 
-  const format = fluentProbe.format.format_name || 'unknown';
+  const format = probe.format.format_name || 'unknown';
 
-  if (!probe.streams || !probe.streams.at(0)) throw new Error(`Unsupported input video format "${format}": ${video}`);
+  const videoStream = probe.streams.at(0);
 
-  const scene: Scene = {
+  if (!probe.streams || !videoStream) throw new Error(`Unsupported input video format "${format}": ${video}`);
+
+  if (!videoStream.width || !videoStream.height || !videoStream.duration || !videoStream.nb_frames || !videoStream.avg_frame_rate)
+    throw new Error('Invalid input video, probably it is corrupt!');
+
+  const durationInSeconds = Number.parseFloat(videoStream.duration);
+  const numFrames = Number.parseInt(videoStream.nb_frames);
+  const fps = Number.parseFloat(videoStream.avg_frame_rate);
+
+  if (Number.isNaN(durationInSeconds) || Number.isNaN(numFrames) || Number.isNaN(fps)) throw new Error('Invalid input video, probably it is corrupt');
+
+  const scene: InitialScene & Partial<Scene> = {
     video,
     index,
-    width: probe.width,
-    height: probe.height,
-    duration: probe.duration,
-    numFrames: parseInt(probe.streams[0].nb_frames),
-    fps: probe.fps,
+    width: videoStream.width,
+    height: videoStream.height,
+    duration: durationInSeconds * 1000,
+    numFrames,
+    fps,
   };
 
-  if (isNaN(scene.numFrames) || isNaN(scene.duration)) throw new Error(`Unsupported input video format "${format}": ${video}`);
+  if (Number.isNaN(scene.numFrames) || Number.isNaN(scene.duration)) throw new Error(`Unsupported input video format "${format}": ${video}`);
 
   if (verbose) {
     console.error(scene);
@@ -167,14 +175,14 @@ const initScene = async (opts: InitSceneOptions) => {
     scene.sourceAudioPath = audioPath;
   }
 
-  return scene;
+  return scene as Scene;
 };
 
 const ffprobeAsync = (file: string) => {
   return new Promise<ffmpeg.FfprobeData>((resolve, reject) => {
     ffmpeg.ffprobe(file, (err, data) => {
-      if (err) reject(err)
-      else resolve(data)
-    })
-  })
-}
+      if (err) reject(err);
+      else resolve(data);
+    });
+  });
+};

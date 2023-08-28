@@ -58,5 +58,6 @@ module.exports = {
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/catch-error-name': 'off',
     'unicorn/prefer-node-protocol': 'off',
+    'import/no-unresolved': 'off',
   },
 };

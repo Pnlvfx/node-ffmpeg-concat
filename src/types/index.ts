@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined
+export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
+
+export type Log = ((stdout?: string) => void) | undefined;
 
 export interface ConcatOptions {
   audio?: string | undefined;
   cleanupFrames?: boolean | undefined;
   concurrency?: number | undefined;
   frameFormat?: FrameFormat;
-  log?: ((stdout?: string) => void) | undefined;
+  log?: Log;
   output: string;
   tempDir?: string | undefined;
   transition?: Transition | undefined;
@@ -26,7 +28,7 @@ export interface Transition {
 
 export interface ExtractAudioOpts {
   // eslint-disable-next-line no-unused-vars
-  log: ({ cmd }: { cmd: unknown }) => void;
+  log: Log;
   videoPath: string;
   outputFileName: string;
   start: number;
@@ -38,7 +40,7 @@ export interface InitFramesOptions extends Omit<InitSceneOptions, 'index'> {
 }
 
 export interface InitSceneOptions {
-  log: ((stdout: string) => void) | undefined;
+  log: Log;
   index: number;
   videos: ReadonlyArray<string>;
   transition?: Transition;

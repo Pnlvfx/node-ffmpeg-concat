@@ -1,86 +1,111 @@
+/* eslint-disable unicorn/no-null */
 import GL from 'gl';
 import { createFrameWriter } from './frame-writer.js';
-import { createTransitionfn } from './transition.js'
+import { DrawOpts, createTransitionfn } from './transition.js';
 import { FrameFormat } from '../types/index.js';
+import { ResizeMode, Theme } from '../types/internal.js';
 
 interface ContextOpts {
   frameFormat: FrameFormat;
-  theme: {
-    width: number;
-    height: number;
-  }
+  theme: Theme;
+}
+
+interface FrameWriter {
+  // eslint-disable-next-line no-unused-vars
+  write: (filePath: string) => Promise<void>;
+  flush: () => Promise<void>;
+  dispose: () => void;
+}
+
+interface GLTransitionFn {
+  name: string;
+  // eslint-disable-next-line no-unused-vars
+  draw: ({ imagePathFrom, imagePathTo, progress, params }: DrawOpts) => Promise<void>;
+  dispose: () => void;
+}
+
+export interface Context {
+  gl: WebGLRenderingContext & GL.StackGLExtension;
+  width: number;
+  height: number;
+  frameWriter: FrameWriter;
+  transition: GLTransitionFn | null;
+  // eslint-disable-next-line no-unused-vars
+  setTransition: ({ name, resizeMode }: { name: string; resizeMode?: ResizeMode }) => undefined;
+  // eslint-disable-next-line no-unused-vars
+  capture: (filePath: string) => Promise<void>;
+  // eslint-disable-next-line no-unused-vars
+  render: GLTransitionFn['draw'];
+  flush: FrameWriter['flush'];
+  dispose: GLTransitionFn['dispose'];
 }
 
 export const createContext = async (opts: ContextOpts) => {
-  const {
-    frameFormat,
-    theme
-  } = opts
+  const { frameFormat, theme } = opts;
 
-  const {
-    width,
-    height
-  } = theme
+  const { width, height } = theme;
 
-  const gl = GL(width, height)
+  const gl = GL(width, height);
 
   if (!gl) {
-    console.error('Failed to create OpenGL context. Please see https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions for compatibility.')
-    throw new Error('failed to create OpenGL context')
+    console.error(
+      'Failed to create OpenGL context. Please see https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions for compatibility.',
+    );
+    throw new Error('failed to create OpenGL context');
   }
 
   const frameWriter = await createFrameWriter({
     gl,
     width,
     height,
-    frameFormat
-  })
+    frameFormat,
+  });
 
-  const ctx = {
+  const ctx: Partial<Context> & { frameWriter: FrameWriter } = {
     gl,
     width,
     height,
     frameWriter,
-    transition: null
-  }
+    transition: null,
+  };
 
   ctx.setTransition = ({ name, resizeMode }) => {
     if (ctx.transition) {
       if (ctx.transition.name === name) {
-        return
+        return;
       }
 
-      ctx.transition.dispose()
-      ctx.transition = null
+      ctx.transition.dispose();
+      ctx.transition = null;
     }
 
     ctx.transition = createTransitionfn({
       gl,
       name,
-      resizeMode
-    })
-  }
+      resizeMode,
+    });
+  };
 
-  ctx.capture = ctx.frameWriter.write.bind(ctx.frameWriter)
+  ctx.capture = ctx.frameWriter.write.bind(ctx.frameWriter);
 
   ctx.render = async (...args) => {
     if (ctx.transition) {
-      return ctx.transition.draw(...args)
+      return ctx.transition.draw(...args);
     }
-  }
+  };
 
   ctx.flush = async () => {
-    return ctx.frameWriter.flush()
-  }
+    return ctx.frameWriter.flush();
+  };
 
   ctx.dispose = async () => {
     if (ctx.transition) {
-      ctx.transition.dispose()
-      ctx.transition = null
+      ctx.transition.dispose();
+      ctx.transition = null;
     }
 
-    gl.destroy()
-  }
+    gl.getExtension('STACKGL_destroy_context')?.destroy();
+  };
 
-  return ctx
-}
+  return ctx as Context;
+};
