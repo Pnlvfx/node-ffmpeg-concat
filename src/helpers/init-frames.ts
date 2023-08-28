@@ -47,7 +47,6 @@ export const initFrames = async (opts: InitFramesOptions) => {
     scene.frameStart = numFrames;
 
     if (!scene.transition) {
-      console.log('Missing transition on this scene', scene);
       throw new Error(`Missing transition on this scene: ${scene}`);
     }
 

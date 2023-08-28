@@ -18,7 +18,7 @@ export const extractVideoFrames = (opts: ExtractVideoFramesOpts) => {
         '-start_number', '0'
       ])
       .output(framePattern)
-      .on('start', (cmd) => console.log({ cmd }))
+      //.on('start', (cmd) => console.log({ cmd }))
       .on('end', () => resolve(framePattern))
       .on('error', (err) => reject(err));
 
