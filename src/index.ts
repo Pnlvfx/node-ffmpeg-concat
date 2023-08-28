@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import rmfr from 'rmfr';
-import tempy from 'tempy';
+import {temporaryDirectory} from 'tempy';
 import { ConcatOptions } from './types';
 import { initFrames } from './helpers/init-frames.js';
 import { renderFrames } from './helpers/render-frames.js';
@@ -31,7 +31,7 @@ const concat = async (opts: ConcatOptions) => {
     fs.ensureDirSync(tempDir);
   }
 
-  const temp = tempDir || tempy.directory();
+  const temp = tempDir || temporaryDirectory();
 
   console.time('ffmpeg-concat');
 

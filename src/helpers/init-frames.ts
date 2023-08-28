@@ -1,9 +1,10 @@
 import ffmpegProbe from 'ffmpeg-probe';
+import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs-extra';
 import leftPad from 'left-pad';
 import path from 'node:path';
 import pMap from 'p-map';
-import { InitFramesOptions, InitSceneOptions } from '../types';
+import { InitFramesOptions, InitSceneOptions, Transition } from '../types';
 import { extractVideoFrames } from './extract-video-frames.js';
 import { extractAudio } from './extract-audio.js';
 
@@ -76,25 +77,39 @@ export const initFrames = async (opts: InitFramesOptions) => {
   };
 };
 
-export const initScene = async (opts: InitSceneOptions) => {
+interface Scene {
+  video: string;
+  index: number;
+  width: number;
+  height: number;
+  duration: number;
+  numFrames: number;
+  fps: number;
+  transition?: Transition;
+  getFrame?: (frame: number) => string;
+  [key: string]: any;
+}
+
+const initScene = async (opts: InitSceneOptions) => {
   const { frameFormat, index, log, outputDir, renderAudio, transition, transitions, verbose, videos } = opts;
 
   const video = videos.at(index);
-  if (!video) throw new Error('KKKerror at init-frames')
+  if (!video) throw new Error('Error at init-frames')
   const probe = await ffmpegProbe(video);
+  const fluentProbe = await ffprobeAsync(video);
 
-  const format: string = (probe.format && probe.format.format_name) || 'unknown';
+  const format = fluentProbe.format.format_name || 'unknown';
 
   if (!probe.streams || !probe.streams.at(0)) throw new Error(`Unsupported input video format "${format}": ${video}`);
 
-  const scene = {
+  const scene: Scene = {
     video,
     index,
-    width: probe.width as number,
-    height: probe.height as number,
-    duration: probe.duration as number,
+    width: probe.width,
+    height: probe.height,
+    duration: probe.duration,
     numFrames: parseInt(probe.streams[0].nb_frames),
-    fps: probe.fps as number,
+    fps: probe.fps,
   };
 
   if (isNaN(scene.numFrames) || isNaN(scene.duration)) throw new Error(`Unsupported input video format "${format}": ${video}`);
@@ -139,8 +154,8 @@ export const initScene = async (opts: InitSceneOptions) => {
   }
 
   if (renderAudio && probe.streams && probe.streams.filter((s) => s.codec_type === 'audio').length) {
-    const previousTransition = index > 0 && transitions ? transitions[index - 1] : transition;
-    const previousTransitionDuration = index === 0 ? 0 : previousTransition.duration || 500;
+    const previousTransition = index > 0 && transitions ? transitions.at(index - 1) : transition;
+    const previousTransitionDuration = index === 0 ? 0 : previousTransition?.duration || 500;
 
     await extractAudio({
       log,
@@ -154,3 +169,12 @@ export const initScene = async (opts: InitSceneOptions) => {
 
   return scene;
 };
+
+const ffprobeAsync = (file: string) => {
+  return new Promise<ffmpeg.FfprobeData>((resolve, reject) => {
+    ffmpeg.ffprobe(file, (err, data) => {
+      if (err) reject(err)
+      else resolve(data)
+    })
+  })
+}
