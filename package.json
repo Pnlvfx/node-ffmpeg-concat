@@ -7,9 +7,6 @@
   "types": "./dist/esm/index.d.ts",
   "type": "module",
   "license": "MIT",
-  "bin": {
-    "ffmpeg-concat": "dist/esm/cli.js"
-  },
   "scripts": {
     "dev": "tsc -w --outDir dist/esm & node --watch .",
     "start": "node .",
