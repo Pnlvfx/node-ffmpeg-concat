@@ -1,9 +1,10 @@
 import GL from 'gl';
 import { createFrameWriter } from './frame-writer.js';
 import { createTransitionfn } from './transition.js'
+import { FrameFormat } from '../types/index.js';
 
 interface ContextOpts {
-  frameFormat: string;
+  frameFormat: FrameFormat;
   theme: {
     width: number;
     height: number;

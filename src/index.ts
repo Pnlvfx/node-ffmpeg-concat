@@ -7,21 +7,24 @@ import path from 'path';
 import rmfr from 'rmfr';
 import { renderFrames } from './helpers/render-frames.js';
 import { temporaryDirectory, temporaryFile } from 'tempy';
+import { transcodeVideo } from './helpers/transcode-video.js';
+import { renderAudio } from './helpers/render-audio.js';
 
 const noop = () => { };
 
 const concat = async (opts: ConcatOptions) => {
   const {
-    tempDir,
-    output,
-    videos,
-    audio,
-    cleanupFrames = true,
+    args,
+    log = noop,
     concurrency = 4,
     frameFormat = 'raw',
-    log = noop,
+    cleanupFrames = true,
     transition,
     transitions,
+    audio,
+    videos,
+    output,
+    tempDir,
     verbose = false,
   } = opts;
 
@@ -49,10 +52,11 @@ const concat = async (opts: ConcatOptions) => {
     console.timeEnd('init-frames');
 
     console.time('render-frames');
-    const framePatterns = await renderFrames({
+    const framePattern = await renderFrames({
       log,
       concurrency,
       outputDir: temp,
+      frameFormat,
       frames,
       theme,
       onProgress: (p) => {
@@ -61,9 +65,37 @@ const concat = async (opts: ConcatOptions) => {
     })
     console.timeEnd('render-frames')
 
-    // console.time('render-audio')
+    console.time('render-audio')
+    let concatAudioFile = audio;
+    if (!audio && scenes.filter((s) => s.sourceAudioPath).length === scenes.length) {
+      concatAudioFile = await renderAudio({
+        log,
+        scenes,
+        outputDir: temp,
+        fileName: 'audioConcat.mp3'
+      })
+    }
+    console.timeEnd('render-audio')
 
-    console.log(frames, scenes, theme);
+    console.time('transcode-video')
+
+    console.log({opts, frames, scenes, theme, framePattern, audio})
+
+    return
+    await transcodeVideo({
+      args,
+      log,
+      framePattern,
+      frameFormat,
+      audio: concatAudioFile,
+      output,
+      theme,
+      verbose,
+      onProgress: (p) => {
+        log(`transcode ${(100 * p).toFixed()}%`)
+      }
+    })
+    console.timeEnd('transcode-video')
   } catch (err) {
     if (cleanupFrames) {
       await rmfr(temp);
@@ -84,5 +116,7 @@ export default concat;
 const getFile = (file: string) => path.join(process.cwd(), file);
 
 const videos = [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')];
+
+console.log(videos);
 
 concat({ videos, output: temporaryFile({ extension: 'mp4' }), transition: { name: 'directionalWipe', duration: 500 } });

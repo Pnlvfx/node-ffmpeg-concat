@@ -5,6 +5,7 @@ import fs from 'fs-extra';
 import { extractVideoFrames } from './extract-video-frames.js';
 import { InitFramesOptions, InitSceneOptions } from '../types';
 import { extractAudio } from './extract-audio.js';
+import leftPad from 'left-pad';
 
 export const initFrames = async (opts: InitFramesOptions) => {
   const { transitions, videos, concurrency, frameFormat, log, outputDir, renderAudio = false, transition, verbose } = opts;
@@ -38,7 +39,7 @@ export const initFrames = async (opts: InitFramesOptions) => {
   const frames = [];
   let numFrames = 0;
 
-  for (const [index, scene] of scenes.entries()) {
+  scenes.forEach((scene, index) => {
     scene.frameStart = numFrames;
 
     scene.numFramesTransition = Math.floor((scene.transition.duration * fps) / 1000);
@@ -58,7 +59,7 @@ export const initFrames = async (opts: InitFramesOptions) => {
         };
       }
     }
-  }
+  })
 
   const duration = scenes.reduce((sum, scene) => scene.duration + sum - scene.transition.duration, 0);
 
@@ -91,7 +92,7 @@ export const initScene = async (opts: InitSceneOptions) => {
     width: probe.width as number,
     height: probe.height as number,
     duration: probe.duration as number,
-    numFrames: parseInt(probe.streams.at(0).nb_frames),
+    numFrames: parseInt(probe.streams[0].nb_frames),
     fps: probe.fps as number,
   };
 
@@ -125,7 +126,7 @@ export const initScene = async (opts: InitSceneOptions) => {
   });
 
   scene.getFrame = (frame) => {
-    return framePattern.replace('%012d', framePattern.padStart(12, '0'));
+    return framePattern.replace('%012d', leftPad(framePattern, 12, '0'));
   };
 
   while (scene.numFrames > 0) {

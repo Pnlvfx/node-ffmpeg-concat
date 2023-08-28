@@ -2,9 +2,13 @@ import fs from 'fs-extra';
 import path from 'node:path'
 import pMap from 'p-map';
 import { createContext } from './context.js';
+import { FrameFormat } from '../types/index.js';
+import leftPad from 'left-pad';
 
 interface RenderFramesOpts {
-
+  frameFormat: FrameFormat;
+  frames: string[];
+  outputDir: string;
 }
 
 export const renderFrames = async (opts: RenderFramesOpts) => {
@@ -53,7 +57,7 @@ export const renderFrame = async (opts) => {
     theme
   } = opts
 
-  const fileName = `${index.toString().padStart(12, '0')}.${frameFormat}`
+  const fileName = `${leftPad(index, 12, '0')}.${frameFormat}`
   const filePath = path.join(outputDir, fileName)
 
   const {
