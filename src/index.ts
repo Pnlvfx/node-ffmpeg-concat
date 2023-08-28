@@ -1,6 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import fs from 'fs-extra';
-import path from 'path';
 import rmfr from 'rmfr';
 import { temporaryDirectory } from 'tempy';
 import { initFrames } from './helpers/init-frames.js';
@@ -108,8 +107,8 @@ const concat = async (opts: ConcatOptions) => {
 
 export default concat;
 
-const getFile = (file: string) => path.join(process.cwd(), file);
+// const getFile = (file: string) => path.join(process.cwd(), file);
 
-const videos = [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')];
+// const videos = [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')];
 
-concat({ videos, output: './media/temp.mp4', transition: { name: 'directionalWipe', duration: 500 } });
+// concat({ videos, output: './media/temp.mp4', transition: { name: 'directionalWipe', duration: 500 } });
