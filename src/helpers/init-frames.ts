@@ -3,7 +3,6 @@
 /* eslint-disable sonarjs/cognitive-complexity */
 import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs-extra';
-import leftPad from 'left-pad';
 import path from 'node:path';
 import pMap from 'p-map';
 import { InitFramesOptions, InitSceneOptions } from '../types';
@@ -149,7 +148,7 @@ const initScene = async (opts: InitSceneOptions) => {
   });
 
   scene.getFrame = (frame) => {
-    return framePattern.replace('%012d', leftPad(frame, 12, '0'));
+    return framePattern.replace('%012d', frame.toString().padStart(12, '0'));
   };
 
   while (scene.numFrames > 0) {
