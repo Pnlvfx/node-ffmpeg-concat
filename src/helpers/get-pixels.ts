@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import getPixels from 'get-pixels';
 import ndarray from 'ndarray';
 import { getFileExt } from './get-file-ext.js';

@@ -1,5 +1,5 @@
 import ffmpeg from 'fluent-ffmpeg';
-import { Writable } from 'stream';
+import { Writable } from 'node:stream';
 
 interface ExtractVideoFramesOpts {
   videoPath: string;
