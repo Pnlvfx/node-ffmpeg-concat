@@ -37,7 +37,7 @@
     "url": "git+https://github.com/Pnlvfx/node-ffmpeg-concat.git"
   },
   "scripts": {
-    "dev": "tsc -w --outDir dist/esm & node --watch .",
+    "dev": "tsc -w --outDir dist/esm & node --watch ./dist/esm/index.js",
     "start": "node .",
     "lint": "eslint ./src",
     "build": "rimraf dist && npm run lint && npm run build:esm && npm run build:cjs",

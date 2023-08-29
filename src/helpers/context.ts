@@ -1,20 +1,13 @@
 /* eslint-disable unicorn/no-null */
 import GL from 'gl';
-import { createFrameWriter } from './frame-writer.js';
-import { DrawOpts, createTransitionfn } from './transition.js';
+import { FrameWriter, createFrameWriter } from './frame-writer.js';
+import { DrawOpts, getTransition } from './transition.js';
 import { FrameFormat } from '../types/index.js';
 import { ResizeMode, Theme } from '../types/internal.js';
 
 interface ContextOpts {
   frameFormat: FrameFormat;
   theme: Theme;
-}
-
-interface FrameWriter {
-  // eslint-disable-next-line no-unused-vars
-  write: (filePath: string) => Promise<void>;
-  flush: () => Promise<void>;
-  dispose: () => void;
 }
 
 interface GLTransitionFn {
@@ -79,7 +72,7 @@ export const createContext = async (opts: ContextOpts) => {
       ctx.transition = null;
     }
 
-    ctx.transition = createTransitionfn({
+    ctx.transition = getTransition({
       gl,
       name,
       resizeMode,

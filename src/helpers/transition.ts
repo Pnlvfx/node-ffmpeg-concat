@@ -2,7 +2,7 @@ import createTransition from 'gl-transition';
 import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d';
 import transitions from 'gl-transitions';
-import { getPixelsFn } from './get-pixels.js';
+import { getPixels } from './get-pixels.js';
 import GL from 'gl';
 import { ResizeMode } from '../types/internal.js';
 
@@ -19,7 +19,7 @@ export interface DrawOpts {
   params: unknown;
 }
 
-export const createTransitionfn = (opts: TransitionOpts) => {
+export const getTransition = (opts: TransitionOpts) => {
   const { name = 'directionalwarp', resizeMode = 'stretch', gl } = opts;
 
   const buffer = createBuffer(gl, [-1, -1, -1, 4, 4, -1], gl.ARRAY_BUFFER, gl.STATIC_DRAW);
@@ -37,7 +37,7 @@ export const createTransitionfn = (opts: TransitionOpts) => {
     draw: async ({ imagePathFrom, imagePathTo, progress, params }: DrawOpts) => {
       gl.clear(gl.COLOR_BUFFER_BIT);
 
-      const dataFrom = await getPixelsFn(imagePathFrom, {
+      const dataFrom = await getPixels(imagePathFrom, {
         width: gl.drawingBufferWidth,
         height: gl.drawingBufferHeight,
       });
@@ -46,7 +46,7 @@ export const createTransitionfn = (opts: TransitionOpts) => {
       textureFrom.minFilter = gl.LINEAR;
       textureFrom.magFilter = gl.LINEAR;
 
-      const dataTo = await getPixelsFn(imagePathTo, {
+      const dataTo = await getPixels(imagePathTo, {
         width: gl.drawingBufferWidth,
         height: gl.drawingBufferHeight,
       });

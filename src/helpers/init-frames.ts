@@ -2,7 +2,7 @@
 /* eslint-disable unicorn/no-array-reduce */
 /* eslint-disable sonarjs/cognitive-complexity */
 import ffmpeg from 'fluent-ffmpeg';
-import fs from 'fs-extra';
+import fs from 'node:fs';
 import path from 'node:path';
 import pMap from 'p-map';
 import { InitFramesOptions, InitSceneOptions } from '../types';
@@ -153,10 +153,12 @@ const initScene = async (opts: InitSceneOptions) => {
 
   while (scene.numFrames > 0) {
     const frame = scene.getFrame(scene.numFrames - 1);
-    const exists = await fs.pathExists(frame);
-
-    if (exists) break;
-    scene.numFrames--;
+    try {
+      await fs.promises.access(frame);
+      break;
+    } catch {
+      scene.numFrames--;
+    }
   }
 
   if (renderAudio && probe.streams && probe.streams.filter((s) => s.codec_type === 'audio').length) {

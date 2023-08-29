@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-null */
-import fs from 'fs-extra';
+import fs from 'node:fs';
 import sharp, { Sharp } from 'sharp';
 import { FrameFormat } from '../types';
 import GL from 'gl';
@@ -18,7 +18,14 @@ type Worker = {
   encoder: Sharp | null;
 };
 
-export const createFrameWriter = async (opts: FrameWriterOpts) => {
+export interface FrameWriter {
+  // eslint-disable-next-line no-unused-vars
+  write: (filePath: string) => Promise<void>;
+  flush: () => Promise<void>;
+  dispose: () => void;
+}
+
+export const createFrameWriter = async (opts: FrameWriterOpts): Promise<FrameWriter> => {
   const { frameFormat = 'raw', gl, width, height } = opts;
 
   if (!supportedFormats.has(frameFormat)) throw new Error(`frame writer unsupported format "${frameFormat}"`);
@@ -56,6 +63,7 @@ export const createFrameWriter = async (opts: FrameWriterOpts) => {
       gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, worker?.byteArray || null);
 
       if (worker && frameFormat === 'raw') {
+        // don't change this to promise
         fs.writeFileSync(filePath, worker.byteArray);
       } else {
         await new Promise<void>((resolve, reject) => {
