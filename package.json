@@ -1,7 +1,7 @@
 {
   "name": "node-ffmpeg-concat",
   "description": "Concats a list of videos together using ffmpeg with sexy OpenGL transitions.",
-  "version": "2023.8.31",
+  "version": "2023.9.1",
   "author": {
     "email": "simonegauli@gmail.com",
     "name": "Simone Gauli"
@@ -46,7 +46,7 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run test && npm run lint",
     "pretest": "npm run lint && tsc --noEmit",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --verbose --coverage"
+    "test": "rimraf coverage && NODE_OPTIONS=--experimental-vm-modules jest --verbose --coverage"
   },
   "files": [
     "dist",
