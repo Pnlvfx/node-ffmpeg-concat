@@ -1,12 +1,30 @@
 {
   "name": "node-ffmpeg-concat",
-  "description": "Node interaction with ffmpeg",
-  "version": "2023.7.6",
+  "description": "Concats a list of videos together using ffmpeg with sexy OpenGL transitions.",
+  "version": "2023.8.29",
+  "author": {
+    "email": "simonegauli@gmail.com",
+    "name": "Simone Gauli"
+  },
   "main": "./dist/esm/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=10.13.0"
+  },
+  "keywords": [
+    "ffmpeg",
+    "fluent-ffmpeg",
+    "opengl",
+    "gl",
+    "gl-transition",
+    "transition",
+    "concat",
+    "concatenate",
+    "video"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Pnlvfx/node-ffmpeg-concat.git"
