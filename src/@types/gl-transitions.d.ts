@@ -68,7 +68,7 @@ declare module 'gl-transitions' {
     | 'wipeRight'
     | 'wipeUp';
 
-  interface DefaultParams {
+  export interface DefaultParams {
     count?: number;
     smoothness?: number;
     center?: [number, number];

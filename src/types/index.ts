@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { DefaultParams, TransitionName } from 'gl-transitions';
+
 export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
 
 export type Log = ((stdout?: string) => void) | undefined;
@@ -22,8 +24,8 @@ export interface ConcatOptions {
 
 export interface Transition {
   duration: number;
-  name: string;
-  params?: Record<string, any>;
+  name: TransitionName;
+  params?: DefaultParams;
 }
 
 export interface ExtractAudioOpts {
