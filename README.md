@@ -1,4 +1,4 @@
-# ffmpeg-concat
+# node-ffmpeg-concat
 
 > Concats a list of videos together using ffmpeg with sexy OpenGL transitions.
 
