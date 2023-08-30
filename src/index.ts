@@ -6,7 +6,7 @@ import { initFrames } from './helpers/init-frames.js';
 import { renderFrames } from './helpers/render-frames.js';
 import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
-import { ConcatOptions } from './types/index.js';
+import { ConcatOptions } from './types/index';
 import transitions from 'gl-transitions';
 
 // eslint-disable-next-line no-empty-function

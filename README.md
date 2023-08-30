@@ -2,7 +2,7 @@
 
 > Concats a list of videos together using ffmpeg with sexy OpenGL transitions.
 
-[![NPM](https://img.shields.io/npm/v/ffmpeg-concat.svg)](https://www.npmjs.com/package/ffmpeg-concat) [![Build Status](https://travis-ci.com/transitive-bullshit/ffmpeg-concat.svg?branch=master)](https://travis-ci.com/transitive-bullshit/ffmpeg-concat) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/node-ffmpeg-concat.svg)
 
 ![](https://raw.githubusercontent.com/transitive-bullshit/ffmpeg-concat/master/media/example.gif)
 
@@ -10,7 +10,9 @@ _(example of 9 videos concatenated together with unique transitions)_
 
 _(note that the quality and fps is only poor due to the GIF preview; [here](https://raw.githubusercontent.com/transitive-bullshit/ffmpeg-concat/master/media/example.mp4) is the original)_
 
-- [![china](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/China.png) **中文/Chinese**](https://github.com/transitive-bullshit/ffmpeg-concat/blob/master/readme.zh.md)
+## Note
+
+This is a reimagined version of the original `ffmpeg-concat` package, designed to provide enhanced features, TypeScript support, and a comprehensive collection of transition names. The goal is to offer improved functionality and maintain regular updates. If you encounter any issues or have feedback, please feel free to leave them on the [GitHub repository](https://github.com/Pnlvfx/node-ffmpeg-concat).
 
 ## Intro
 
@@ -25,11 +27,13 @@ _(note that the quality and fps is only poor due to the GIF preview; [here](http
 This module requires [ffmpeg](http://ffmpeg.org/) to be installed.
 
 ```bash
-npm install --save ffmpeg-concat
+npm install --save node-ffmpeg-concat
 
 # or if you want to use the CLI
-npm install -g ffmpeg-concat
+npm install -g -node-ffmpeg-concat
 ```
+
+WARNING: The CLI is not supported in this version yet, it will be implemented soon.
 
 This package runs on Linux, macOS, and Windows.
 
@@ -38,7 +42,7 @@ Node.js versions 10.13.0 and up are supported. Note (**macOS only**): due to an 
 ## CLI
 
 ```sh
-  Usage: ffmpeg-concat [options] <videos...>
+  Usage: node-ffmpeg-concat [options] <videos...>
 
   Options:
 
@@ -56,13 +60,13 @@ Node.js versions 10.13.0 and up are supported. Note (**macOS only**): due to an 
 
   Example:
 
-    ffmpeg-concat -t circleopen -d 750 -o huzzah.mp4 0.mp4 1.mp4 2.mp4
+    node-ffmpeg-concat -t circleopen -d 750 -o huzzah.mp4 0.mp4 1.mp4 2.mp4
 ```
 
 ## Usage
 
 ```js
-const concat = require("ffmpeg-concat");
+import concat from "node-ffmpeg-concat";
 
 // concat 3 mp4s together using 2 500ms directionalWipe transitions
 await concat({
@@ -107,6 +111,14 @@ await concat({
     },
   ],
 });
+```
+
+```js
+import { getTransitions } from "node-ffmpeg-concat";
+
+// get a list of all transitions
+const transitions = getTransitions();
+// all transitions have a strong typescript support, and you can get suggestions for all available transitions name.
 ```
 
 ## API
@@ -258,6 +270,4 @@ Here are some [gl-transitions](https://gl-transitions.com/) that I've found part
 
 ## License
 
-MIT © [Travis Fischer](https://github.com/transitive-bullshit)
-
-Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+MIT © [Simone Gauli](https://github.com/Pnlvfx)
