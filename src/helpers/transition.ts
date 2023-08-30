@@ -1,10 +1,10 @@
 import createTransition from 'gl-transition';
 import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d';
-import transitions from 'gl-transitions';
 import { getPixels } from './get-pixels.js';
 import GL from 'gl';
 import { ResizeMode } from '../types/internal.js';
+import transitions from './transitions-wrap.js';
 
 interface TransitionOpts {
   name: string;

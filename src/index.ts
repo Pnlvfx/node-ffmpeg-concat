@@ -7,7 +7,6 @@ import { renderFrames } from './helpers/render-frames.js';
 import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
 import { ConcatOptions } from './types/index';
-import transitions from 'gl-transitions';
 
 // eslint-disable-next-line no-empty-function
 const noop = () => {};
@@ -108,6 +107,4 @@ const concat = async (opts: ConcatOptions) => {
 
 export default concat;
 
-export const getTransitions = () => {
-  return transitions;
-};
+export { default as transitions } from './helpers/transitions-wrap.js';

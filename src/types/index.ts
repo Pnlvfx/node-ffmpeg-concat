@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { DefaultParams, TransitionName } from 'gl-transitions';
+import { DefaultParams, TransitionName } from '../helpers/transitions-wrap';
 
 export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
 
@@ -29,7 +28,6 @@ export interface Transition {
 }
 
 export interface ExtractAudioOpts {
-  // eslint-disable-next-line no-unused-vars
   log: Log;
   videoPath: string;
   outputFileName: string;

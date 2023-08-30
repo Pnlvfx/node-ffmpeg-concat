@@ -48,7 +48,7 @@ WARNING: The CLI is not supported in this version yet, it will be implemented so
 
 This package runs on Linux, macOS, and Windows.
 
-Node.js versions 10.13.0 and up are supported. Note (**macOS only**): due to an inadvertant low-level breaking change in libuv's process handling code, OpenGL [is not supported](https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions) when running Node.js version 12.13.1 through to 13.6.0 on macOS. A fix has been released in Node.js version 13.7.0. A fix for 12.x is pending. Other platforms are unaffected.
+Node.js versions 10.13.0 and up to node 19, for now, are supported. Note (**macOS only**): due to an inadvertant low-level breaking change in libuv's process handling code, OpenGL [is not supported](https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions) when running Node.js version 12.13.1 through to 13.6.0 on macOS. A fix has been released in Node.js version 13.7.0. A fix for 12.x is pending. Other platforms are unaffected.
 
 ## CLI
 
@@ -125,10 +125,8 @@ await concat({
 ```
 
 ```js
-import { getTransitions } from "node-ffmpeg-concat";
-
+import { transitions } from "node-ffmpeg-concat";
 // get a list of all transitions
-const transitions = getTransitions();
 // all transitions have a strong typescript support, and you can get suggestions for all available transitions name.
 ```
 
