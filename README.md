@@ -14,6 +14,17 @@ _(note that the quality and fps is only poor due to the GIF preview; [here](http
 
 This is a reimagined version of the original `ffmpeg-concat` package, designed to provide enhanced features, TypeScript support, and a comprehensive collection of transition names. The goal is to offer improved functionality and maintain regular updates. If you encounter any issues or have feedback, please feel free to leave them on the [GitHub repository](https://github.com/Pnlvfx/node-ffmpeg-concat).
 
+Noteworthy Features:
+
+- Extended feature set for more versatile video concatenation and manipulation.
+- Full compatibility with both CommonJS (cjs) and ECMAScript Modules (esm), catering to various project setups and preferences.
+
+Compatibility Note:
+
+- The package includes the 'gl' dependency, which is crucial for its functionality.
+- Currently, due to limitations in the 'gl' package support, there are compatibility issues with Node.js version 20.
+- Therefore, Node.js version 19 is the highest version guaranteed to work seamlessly with this package.
+
 ## Intro
 
 [FFmpeg](http://ffmpeg.org/) is the de facto standard in command-line video editing, but it is really difficult to concatenate videos together using non-trivial transitions. Here are some [convoluted](https://superuser.com/questions/778762/crossfade-between-2-videos-using-ffmpeg) [examples](https://video.stackexchange.com/questions/17502/concate-two-video-file-with-fade-effect-with-ffmpeg-in-linux) of a simple cross-fade between two videos. FFmpeg filter graphs are extremely powerful, but for implementing transitions, they are just too complicated and error-prone.
