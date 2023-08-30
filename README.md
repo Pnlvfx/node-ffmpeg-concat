@@ -2,7 +2,7 @@
 
 > Concats a list of videos together using ffmpeg with sexy OpenGL transitions.
 
-[![NPM](https://img.shields.io/npm/v/node-ffmpeg-concat.svg)
+![NPM](https://img.shields.io/npm/v/node-ffmpeg-concat.svg)
 
 ![](https://raw.githubusercontent.com/transitive-bullshit/ffmpeg-concat/master/media/example.gif)
 
