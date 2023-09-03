@@ -8,7 +8,7 @@ export const extractAudio = (opts: ExtractAudioOpts) => {
     const cmd = ffmpeg(videoPath)
       .noVideo()
       .audioCodec('libmp3lame')
-      .on('start', (cmd) => log && log(`cmd: ${cmd}`))
+      .on('start', (cmd) => log && log(`audio-cmd: ${cmd}`))
       .on('end', () => resolve(outputFileName))
       .on('error', (err) => reject(err));
     if (start) {
