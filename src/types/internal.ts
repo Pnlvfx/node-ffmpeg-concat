@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Transition } from '.';
+import { Transition } from './index.js';
 
 export type ResizeMode = 'stretch' | string;
 

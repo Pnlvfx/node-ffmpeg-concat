@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null */
 import fs from 'node:fs';
 import sharp, { Sharp } from 'sharp';
-import { FrameFormat } from '../types';
+import { FrameFormat } from '../types/index.js';
 import GL from 'gl';
 
 const supportedFormats = new Set(['png', 'jpg', 'raw']);

@@ -1,12 +1,9 @@
 import { describe, it, jest } from '@jest/globals';
-import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import os from 'node:os';
-import concat from 'ffmpeg-concat';
+import concat from '../src';
 const isMac = os.platform() === 'darwin';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const getFile = (file: string) => path.join(__dirname, '..', file);
+const getFile = (file: string) => path.join(process.cwd(), file);
 const output = isMac ? 'example_mac.mp4' : 'example_linux.mp4';
 
 describe('concat function', () => {

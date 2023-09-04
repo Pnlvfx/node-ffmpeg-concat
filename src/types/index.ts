@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { DefaultParams, TransitionName } from '../helpers/transitions-wrap';
+import { DefaultParams, TransitionName } from '../helpers/transitions-wrap.js';
 
 export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
 

@@ -1,8 +1,8 @@
 /* eslint-disable unicorn/prefer-spread */
 import ffmpeg from 'fluent-ffmpeg';
 import onTranscodeProgress from 'ffmpeg-on-progress';
-import { Log } from '../types';
-import { OnProgress, Theme } from '../types/internal';
+import { Log } from '../types/index.js';
+import { OnProgress, Theme } from '../types/internal.js';
 
 interface TranscodeVideoOpts {
   args?: string[];

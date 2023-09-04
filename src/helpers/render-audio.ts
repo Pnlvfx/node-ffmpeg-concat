@@ -1,8 +1,8 @@
 import fs from 'fs-extra';
 import ffmpeg from 'fluent-ffmpeg';
 import path from 'node:path';
-import { Log } from '../types';
-import { Scene } from '../types/internal';
+import { Log } from '../types/index.js';
+import { Scene } from '../types/internal.js';
 
 interface RenderAudioOpts {
   log: Log;
