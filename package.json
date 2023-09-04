@@ -46,7 +46,7 @@
     "lint": "eslint ./src",
     "build": "rimraf dist && npm run lint && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "build:cjs": "tsc --module commonjs --moduleResolution node --outDir dist/cjs",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test && npm run lint",
     "pretest": "npm run lint && tsc --noEmit",
