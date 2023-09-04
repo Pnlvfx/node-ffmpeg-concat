@@ -1,10 +1,13 @@
 import { describe, it, jest } from '@jest/globals';
 import { fileURLToPath } from 'node:url';
-import concat from '../src';
 import path from 'node:path';
+import os from 'node:os';
+import concat from 'ffmpeg-concat';
+const isMac = os.platform() === 'darwin';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const getFile = (file: string) => path.join(__dirname, '..', file);
+const output = isMac ? 'example_mac.mp4' : 'example_linux.mp4';
 
 describe('concat function', () => {
   it(
@@ -33,10 +36,9 @@ describe('concat function', () => {
       //   transcodeVideo: mockTranscodeVideo,
       // }));
 
-      // Call the concat function with the prepared options
       await concat({
         videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
-        output: './media/example.mp4',
+        output: path.join('media', output),
         transition: { name: 'directionalwipe', duration: 500 },
       });
 
