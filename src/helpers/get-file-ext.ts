@@ -35,4 +35,5 @@ export const getFileExt = (url: string, opts = { strict: true }) => {
   if (!opts.strict || extWhitelist.has(ext)) {
     return ext;
   }
+  return 'raw'; // default
 };

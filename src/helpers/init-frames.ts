@@ -5,10 +5,10 @@ import ffmpeg from 'fluent-ffmpeg';
 import fs from 'node:fs';
 import path from 'node:path';
 import pMap from 'p-map';
-import { InitFramesOptions, InitSceneOptions } from '../types';
+import { InitFramesOptions, InitSceneOptions } from '../types/index.js';
 import { extractVideoFrames } from './extract-video-frames.js';
 import { extractAudio } from './extract-audio.js';
-import { InitialScene, Scene } from '../types/internal';
+import { InitialScene, Scene } from '../types/internal.js';
 
 export const initFrames = async (opts: InitFramesOptions) => {
   const { concurrency, log, videos, transition, transitions, frameFormat, outputDir, renderAudio = false, verbose } = opts;
@@ -37,7 +37,10 @@ export const initFrames = async (opts: InitFramesOptions) => {
     },
   );
 
-  const { width, height, fps } = scenes[0];
+  const sceneInit = scenes.at(0);
+  if (!sceneInit) throw new Error('No scenes found!');
+
+  const { width, height, fps } = sceneInit;
 
   const frames = [];
   let numFrames = 0;
