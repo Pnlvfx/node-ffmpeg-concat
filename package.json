@@ -1,7 +1,7 @@
 {
   "name": "node-ffmpeg-concat",
   "description": "Concats a list of videos together using ffmpeg with sexy OpenGL transitions.",
-  "version": "2023.9.3",
+  "version": "2023.9.6",
   "author": {
     "email": "simonegauli@gmail.com",
     "name": "Simone Gauli"
@@ -41,10 +41,11 @@
     "url": "git+https://github.com/Pnlvfx/node-ffmpeg-concat.git"
   },
   "scripts": {
+    "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
     "dev": "tsc -w --outDir dist/esm & node --watch ./dist/esm/index.js",
     "start": "node .",
     "lint": "eslint ./src",
-    "build": "rimraf dist && npm run lint && npm run build:esm && npm run build:cjs",
+    "build": "rimraf dist && npm run lint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --moduleResolution node --outDir dist/cjs",
     "prepare": "npm run build",
@@ -95,6 +96,7 @@
     "prettier": "^3.0.3",
     "rimraf": "^5.0.1",
     "ts-jest": "^29.1.1",
+    "tsx": "^3.12.8",
     "typescript": "^5.2.2"
   }
 }
