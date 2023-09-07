@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-spread */
 import ffmpeg from 'fluent-ffmpeg';
 import onTranscodeProgress from 'ffmpeg-on-progress';
 import { Log } from '../types/index.js';
@@ -32,30 +31,25 @@ export const transcodeVideo = async (opts: TranscodeVideoOpts) => {
       cmd.addInput(audio);
     }
 
-    const outputOptions = ['-hide_banner', '-map_metadata', '-1', '-map_chapters', '-1']
-
-      // video
-      .concat(
-        args || [
-          '-c:v',
-          'libx264',
-          '-profile:v',
-          'main',
-          '-preset',
-          'medium',
-          '-crf',
-          '20',
-          '-movflags',
-          'faststart',
-          '-pix_fmt',
-          'yuv420p',
-          '-r',
-          theme.fps.toString(),
-        ],
-      )
-
-      // audio
-      .concat(audio ? ['-c:a', 'copy'] : []);
+    const outputOptions = ['-hide_banner', '-map_metadata', '-1', '-map_chapters', '-1'];
+    const videoOptions = args || [
+      '-c:v',
+      'libx264',
+      '-profile:v',
+      'main',
+      '-preset',
+      'medium',
+      '-crf',
+      '20',
+      '-movflags',
+      'faststart',
+      '-pix_fmt',
+      'yuv420p',
+      '-r',
+      theme.fps.toString(),
+    ];
+    const audioOptions = audio ? ['-c:a', 'copy'] : [];
+    outputOptions.push(...videoOptions, ...audioOptions);
 
     if (onProgress) {
       cmd.on('progress', onTranscodeProgress(onProgress, theme.duration));
