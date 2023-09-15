@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 import GL from 'gl';
 import { FrameWriter, createFrameWriter } from './frame-writer.js';
 import { DrawOpts, getTransition } from './transition.js';
@@ -59,7 +58,7 @@ export const createContext = async (opts: ContextOpts) => {
     width,
     height,
     frameWriter,
-    transition: null,
+    transition: undefined,
   };
 
   ctx.setTransition = ({ name, resizeMode }) => {
@@ -69,7 +68,7 @@ export const createContext = async (opts: ContextOpts) => {
       }
 
       ctx.transition.dispose();
-      ctx.transition = null;
+      ctx.transition = undefined;
     }
 
     ctx.transition = getTransition({
@@ -94,7 +93,7 @@ export const createContext = async (opts: ContextOpts) => {
   ctx.dispose = async () => {
     if (ctx.transition) {
       ctx.transition.dispose();
-      ctx.transition = null;
+      ctx.transition = undefined;
     }
 
     gl.getExtension('STACKGL_destroy_context')?.destroy();

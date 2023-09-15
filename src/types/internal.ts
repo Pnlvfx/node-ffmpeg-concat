@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { Transition } from './index.js';
 
 export type ResizeMode = 'stretch' | string;
 
+// eslint-disable-next-line no-unused-vars
 export type OnProgress = (p: number) => void;
 
 export interface Scene extends InitialScene {

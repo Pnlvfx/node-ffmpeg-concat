@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-
 import { DefaultParams, TransitionName } from '../helpers/transitions-wrap.js';
 
 export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
 
+// eslint-disable-next-line no-unused-vars
 export type Log = ((stdout?: string) => void) | undefined;
 
 export interface ConcatOptions {

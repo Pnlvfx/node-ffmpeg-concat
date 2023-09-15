@@ -37,6 +37,12 @@ Compatibility Note:
 
 This module requires [ffmpeg](http://ffmpeg.org/) to be installed.
 
+We also decide to make sharp as a peer dependency as a lot of projects are using it so make sure to install it before proceeding:
+
+```bash
+npm install --save sharp
+```
+
 ```bash
 npm install --save node-ffmpeg-concat
 

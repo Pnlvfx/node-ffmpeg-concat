@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/explicit-length-check */
 /* eslint-disable unicorn/no-array-reduce */
 /* eslint-disable sonarjs/cognitive-complexity */
 import ffmpeg from 'fluent-ffmpeg';
@@ -164,7 +163,7 @@ const initScene = async (opts: InitSceneOptions) => {
     }
   }
 
-  if (renderAudio && probe.streams && probe.streams.filter((s) => s.codec_type === 'audio').length) {
+  if (renderAudio && probe.streams && probe.streams.some((s) => s.codec_type === 'audio')) {
     const previousTransition = index > 0 && transitions ? transitions.at(index - 1) : transition;
     const previousTransitionDuration = index === 0 ? 0 : previousTransition?.duration || 500;
 
