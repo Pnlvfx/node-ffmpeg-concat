@@ -18,9 +18,10 @@ export const initFrames = async (opts: InitFramesOptions) => {
 
   const scenes = await pMap(
     videos,
-    (_, index) => {
-      return initScene({
+    (video, index) =>
+      initScene({
         log,
+        video,
         index,
         videos,
         transition,
@@ -29,8 +30,7 @@ export const initFrames = async (opts: InitFramesOptions) => {
         outputDir,
         renderAudio,
         verbose,
-      });
-    },
+      }),
     {
       concurrency,
     },
@@ -89,17 +89,15 @@ export const initFrames = async (opts: InitFramesOptions) => {
 };
 
 const initScene = async (opts: InitSceneOptions) => {
-  const { frameFormat, index, log, outputDir, renderAudio, transition, transitions, verbose, videos } = opts;
+  const { frameFormat, index, log, outputDir, renderAudio, transition, transitions, verbose, videos, video } = opts;
 
-  const video = videos.at(index);
-  if (!video) throw new Error('Error at init-frames');
   const probe = await ffprobeAsync(video);
 
   const format = probe.format.format_name || 'unknown';
 
   const videoStream = probe.streams.at(0);
 
-  if (!probe.streams || !videoStream) throw new Error(`Unsupported input video format "${format}": ${video}`);
+  if (!videoStream) throw new Error(`Unsupported input video format "${format}": ${video}`);
 
   if (!videoStream.width || !videoStream.height || !videoStream.duration || !videoStream.nb_frames || !videoStream.avg_frame_rate)
     throw new Error('Invalid input video, probably it is corrupt!');

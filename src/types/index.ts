@@ -34,13 +34,14 @@ export interface ExtractAudioOpts {
   duration: number;
 }
 
-export interface InitFramesOptions extends Omit<InitSceneOptions, 'index'> {
+export interface InitFramesOptions extends Omit<InitSceneOptions, 'index' | 'video'> {
   concurrency?: number;
 }
 
 export interface InitSceneOptions {
   log: Log;
   index: number;
+  video: string;
   videos: ReadonlyArray<string>;
   transition?: Transition;
   transitions?: ReadonlyArray<Transition> | undefined;
@@ -49,7 +50,3 @@ export interface InitSceneOptions {
   renderAudio: boolean;
   verbose?: boolean;
 }
-
-// declare function concat(concatOptions: ConcatOptions): Promise<void>;
-
-// export default concat;
