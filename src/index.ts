@@ -1,4 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import type { ConcatOptions } from './types/index.js';
 import fs from 'fs-extra';
 import rmfr from 'rmfr';
 import { temporaryDirectory } from 'tempy';
@@ -6,7 +7,6 @@ import { initFrames } from './helpers/init-frames.js';
 import { renderFrames } from './helpers/render-frames.js';
 import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
-import { ConcatOptions } from './types/index.js';
 
 // eslint-disable-next-line no-empty-function
 const noop = () => {};
@@ -119,6 +119,6 @@ export { default as transitions } from './helpers/transitions-wrap.js';
 
 // concat({
 //   videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
-//   output: './media/example.mp4',
 //   transition: { name: 'directionalwipe', duration: 500 },
+//   output: './media/example.mp4',
 // });

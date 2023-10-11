@@ -1,4 +1,4 @@
-import { Transition } from './index.js';
+import type { Transition } from './index.js';
 
 export type ResizeMode = 'stretch' | string;
 

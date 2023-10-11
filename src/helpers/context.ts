@@ -2,7 +2,7 @@ import GL from 'gl';
 import { FrameWriter, createFrameWriter } from './frame-writer.js';
 import { DrawOpts, getTransition } from './transition.js';
 import { FrameFormat } from '../types/index.js';
-import { ResizeMode, Theme } from '../types/internal.js';
+import type { ResizeMode, Theme } from '../types/internal.js';
 
 interface ContextOpts {
   frameFormat: FrameFormat;
@@ -11,7 +11,6 @@ interface ContextOpts {
 
 interface GLTransitionFn {
   name: string;
-  // eslint-disable-next-line no-unused-vars
   draw: ({ imagePathFrom, imagePathTo, progress, params }: DrawOpts) => Promise<void>;
   dispose: () => void;
 }
