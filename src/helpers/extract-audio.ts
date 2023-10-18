@@ -1,5 +1,5 @@
 import ffmpeg from 'fluent-ffmpeg';
-import { ExtractAudioOpts } from '../types/index.js';
+import type { ExtractAudioOpts } from '../types/index.js';
 
 export const extractAudio = (opts: ExtractAudioOpts) => {
   const { log, videoPath, outputFileName, start, duration } = opts;
