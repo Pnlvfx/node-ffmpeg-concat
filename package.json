@@ -99,6 +99,6 @@
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "sharp": "^0.32.5"
+    "sharp": "*"
   }
 }
