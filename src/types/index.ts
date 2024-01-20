@@ -27,7 +27,6 @@ export interface Transition {
 }
 
 export interface ExtractAudioOpts {
-  log: Log;
   videoPath: string;
   outputFileName: string;
   start: number;
@@ -39,7 +38,6 @@ export interface InitFramesOptions extends Omit<InitSceneOptions, 'index' | 'vid
 }
 
 export interface InitSceneOptions {
-  log: Log;
   index: number;
   video: string;
   videos: ReadonlyArray<string>;

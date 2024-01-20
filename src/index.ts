@@ -38,7 +38,6 @@ const concat = async (opts: ConcatOptions) => {
   try {
     console.time('init-frames');
     const { frames, scenes, theme } = await initFrames({
-      log,
       concurrency,
       videos,
       transition,

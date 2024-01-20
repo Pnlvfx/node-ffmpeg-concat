@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/no-array-reduce */
 /* eslint-disable sonarjs/cognitive-complexity */
-import ffmpeg from 'fluent-ffmpeg';
+import ffmpeg from 'async-ffmpeg';
 import fs from 'node:fs';
 import path from 'node:path';
 import pMap from 'p-map';
@@ -10,7 +10,7 @@ import { extractAudio } from './extract-audio.js';
 import { InitialScene, Scene } from '../types/internal.js';
 
 export const initFrames = async (opts: InitFramesOptions) => {
-  const { concurrency, log, videos, transition, transitions, frameFormat, outputDir, renderAudio = false, verbose } = opts;
+  const { concurrency, videos, transition, transitions, frameFormat, outputDir, renderAudio = false, verbose } = opts;
 
   if (transitions && videos.length - 1 !== transitions.length) {
     throw new Error('Number of transitions must equal number of videos minus one');
@@ -20,7 +20,6 @@ export const initFrames = async (opts: InitFramesOptions) => {
     videos,
     (video, index) =>
       initScene({
-        log,
         video,
         index,
         videos,
@@ -89,9 +88,9 @@ export const initFrames = async (opts: InitFramesOptions) => {
 };
 
 const initScene = async (opts: InitSceneOptions) => {
-  const { frameFormat, index, log, outputDir, renderAudio, transition, transitions, verbose, videos, video } = opts;
+  const { frameFormat, index, outputDir, renderAudio, transition, transitions, verbose, videos, video } = opts;
 
-  const probe = await ffprobeAsync(video);
+  const probe = await ffmpeg.ffprobe(video);
 
   const format = probe.format.format_name || 'unknown';
 
@@ -166,7 +165,6 @@ const initScene = async (opts: InitSceneOptions) => {
     const previousTransitionDuration = index === 0 ? 0 : previousTransition?.duration || 500;
 
     await extractAudio({
-      log,
       videoPath: scene.video,
       outputFileName: audioPath,
       start: previousTransitionDuration / 2000,
@@ -176,13 +174,4 @@ const initScene = async (opts: InitSceneOptions) => {
   }
 
   return scene as Scene;
-};
-
-const ffprobeAsync = (file: string) => {
-  return new Promise<ffmpeg.FfprobeData>((resolve, reject) => {
-    ffmpeg.ffprobe(file, (err, data) => {
-      if (err) reject(err);
-      else resolve(data);
-    });
-  });
 };

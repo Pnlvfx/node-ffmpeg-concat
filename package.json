@@ -59,6 +59,7 @@
     "README.md"
   ],
   "dependencies": {
+    "async-ffmpeg": "^2024.1.15",
     "ffmpeg-on-progress": "^1.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^11.2.0",
