@@ -21,11 +21,8 @@ export interface Context {
   height: number;
   frameWriter: FrameWriter;
   transition: GLTransitionFn | null;
-  // eslint-disable-next-line no-unused-vars
   setTransition: ({ name, resizeMode }: { name: string; resizeMode?: ResizeMode }) => undefined;
-  // eslint-disable-next-line no-unused-vars
   capture: (filePath: string) => Promise<void>;
-  // eslint-disable-next-line no-unused-vars
   render: GLTransitionFn['draw'];
   flush: FrameWriter['flush'];
   dispose: GLTransitionFn['dispose'];

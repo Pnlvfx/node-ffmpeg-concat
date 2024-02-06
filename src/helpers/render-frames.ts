@@ -1,16 +1,15 @@
+import type { FrameFormat } from '../types/index.js';
+import type { Frame, OnProgress, Theme } from '../types/internal.js';
 import fs from 'fs-extra';
 import path from 'node:path';
 import pMap from 'p-map';
-import { FrameFormat } from '../types/index.js';
 import { Context, createContext } from './context.js';
-import { Frame, OnProgress, Theme } from '../types/internal.js';
 
 interface RenderFramesOpts {
   frameFormat: FrameFormat;
   frames: Frame[];
   outputDir: string;
   theme: Theme;
-  // eslint-disable-next-line no-unused-vars
   onProgress: OnProgress;
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/no-null */
 import fs from 'node:fs';
-import sharp, { Sharp } from 'sharp';
+import sharp, { type Sharp } from 'sharp';
 import { FrameFormat } from '../types/index.js';
 import GL from 'gl';
 
@@ -19,7 +19,6 @@ type Worker = {
 };
 
 export interface FrameWriter {
-  // eslint-disable-next-line no-unused-vars
   write: (filePath: string) => Promise<void>;
   flush: () => Promise<void>;
   dispose: () => void;

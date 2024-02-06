@@ -28,9 +28,7 @@ export const getTransition = (opts: TransitionOpts) => {
 
   const source = transitions.find((t) => t.name.toLowerCase() === transitionName) || transitions.find((t) => t.name.toLowerCase() === 'fade');
 
-  const transition = createTransition.default(gl, source, {
-    resizeMode,
-  });
+  const transition = createTransition.default(gl, source, { resizeMode });
 
   return {
     name,
@@ -50,6 +48,7 @@ export const getTransition = (opts: TransitionOpts) => {
         width: gl.drawingBufferWidth,
         height: gl.drawingBufferHeight,
       });
+
       const textureTo = createTexture(gl, dataTo);
       textureTo.minFilter = gl.LINEAR;
       textureTo.magFilter = gl.LINEAR;

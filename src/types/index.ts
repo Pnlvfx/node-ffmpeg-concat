@@ -2,7 +2,6 @@ import type { DefaultParams, TransitionName } from '../helpers/transitions-wrap.
 
 export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
 
-// eslint-disable-next-line no-unused-vars
 export type Log = ((stdout?: string) => void) | undefined;
 
 export interface ConcatOptions {

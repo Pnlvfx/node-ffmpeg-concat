@@ -54,7 +54,7 @@ WARNING: The CLI is not supported in this version yet, it will be implemented so
 
 This package runs on Linux, macOS, and Windows.
 
-Node.js versions 10.13.0 and up to node 19, for now, are supported. Note (**macOS only**): due to an inadvertant low-level breaking change in libuv's process handling code, OpenGL [is not supported](https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions) when running Node.js version 12.13.1 through to 13.6.0 on macOS. A fix has been released in Node.js version 13.7.0. A fix for 12.x is pending. Other platforms are unaffected.
+Node.js versions 10.13.0 and up to node 20.3, for now, are supported. Note (**macOS only**): due to an inadvertant low-level breaking change in libuv's process handling code, OpenGL [is not supported](https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions) when running Node.js version 12.13.1 through to 13.6.0 on macOS. A fix has been released in Node.js version 13.7.0. A fix for 12.x is pending. Other platforms are unaffected.
 
 ## CLI
 
@@ -83,14 +83,14 @@ Node.js versions 10.13.0 and up to node 19, for now, are supported. Note (**macO
 ## Usage
 
 ```js
-import concat from "node-ffmpeg-concat";
+import concat from 'node-ffmpeg-concat';
 
 // concat 3 mp4s together using 2 500ms directionalWipe transitions
 await concat({
-  output: "test.mp4",
-  videos: ["media/0.mp4", "media/1.mp4", "media/2.mp4"],
+  output: 'test.mp4',
+  videos: ['media/0.mp4', 'media/1.mp4', 'media/2.mp4'],
   transition: {
-    name: "directionalWipe",
+    name: 'directionalWipe',
     duration: 500,
   },
 });
@@ -99,31 +99,25 @@ await concat({
 ```js
 // concat 5 mp4s together using 4 different transitions
 await concat({
-  output: "test.mp4",
-  videos: [
-    "media/0.mp4",
-    "media/1.mp4",
-    "media/2.mp4",
-    "media/0.mp4",
-    "media/1.mp4",
-  ],
+  output: 'test.mp4',
+  videos: ['media/0.mp4', 'media/1.mp4', 'media/2.mp4', 'media/0.mp4', 'media/1.mp4'],
   transitions: [
     {
-      name: "circleOpen",
+      name: 'circleOpen',
       duration: 1000,
     },
     {
-      name: "crossWarp",
+      name: 'crossWarp',
       duration: 800,
     },
     {
-      name: "directionalWarp",
+      name: 'directionalWarp',
       duration: 500,
       // pass custom params to a transition
       params: { direction: [1, -1] },
     },
     {
-      name: "squaresWire",
+      name: 'squaresWire',
       duration: 2000,
     },
   ],
@@ -131,7 +125,7 @@ await concat({
 ```
 
 ```js
-import { transitions } from "node-ffmpeg-concat";
+import { transitions } from 'node-ffmpeg-concat';
 // get a list of all transitions
 // all transitions have a strong typescript support, and you can get suggestions for all available transitions name.
 ```
@@ -176,7 +170,7 @@ Note that you must specify either `transition` or `transitions`, depending on ho
 // example
 const transition = {
   duration: 1000, // ms
-  name: "directionalwipe", // gl-transition name to use (will match with lower-casing)
+  name: 'directionalwipe', // gl-transition name to use (will match with lower-casing)
   params: { direction: [1, -1] }, // optionally override default parameters
 };
 ```
@@ -194,11 +188,11 @@ Note that you must specify either `transition` or `transitions`, depending on ho
 const transitions = [
   {
     duration: 1000,
-    name: "fade",
+    name: 'fade',
   },
   {
     duration: 500,
-    name: "swap",
+    name: 'swap',
   },
 ];
 ```
