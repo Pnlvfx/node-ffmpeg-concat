@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-object-as-default-parameter */
 import parseUrl from 'url-parse';
 
 const extWhitelist = new Set([
@@ -27,12 +26,12 @@ const extWhitelist = new Set([
   'ogg',
 ]);
 
-export const getFileExt = (url: string, opts = { strict: true }) => {
+export const getFileExt = (url: string, { strict = true } = {}) => {
   const { pathname } = parseUrl(url);
   const parts = pathname.split('.');
   const ext = (parts.at(-1) || '').trim().toLowerCase();
 
-  if (!opts.strict || extWhitelist.has(ext)) {
+  if (!strict || extWhitelist.has(ext)) {
     return ext;
   }
   return 'raw'; // default
