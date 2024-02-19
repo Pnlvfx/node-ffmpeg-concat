@@ -106,7 +106,7 @@ const concat = async (opts: ConcatOptions) => {
 
 export default concat;
 
-export { default as transitions } from './helpers/transitions-wrap.js';
+export { default as transitions, type TransitionName } from './helpers/transitions-wrap.js';
 export type { ConcatOptions, ExtractAudioOpts, FrameFormat, InitFramesOptions, InitSceneOptions, Log, Transition } from './types/index.js';
 
 // // RUN EXAMPLE

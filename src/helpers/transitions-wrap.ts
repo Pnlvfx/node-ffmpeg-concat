@@ -116,4 +116,5 @@ export interface GLTransition {
 }
 
 const transitions: GLTransition[] = Transitions;
+
 export default transitions;
