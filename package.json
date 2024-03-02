@@ -23,7 +23,7 @@
   "type": "module",
   "license": "MIT",
   "engines": {
-    "node": ">=10.13.0 < 21"
+    "node": ">=14"
   },
   "keywords": [
     "ffmpeg",
