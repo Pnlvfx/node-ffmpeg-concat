@@ -42,7 +42,7 @@
   },
   "scripts": {
     "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
-    "dev": "tsc -w & DISPLAY=:1 node --watch ./dist/esm/cli.js",
+    "dev": "tsc -w & node --env-file .env --watch ./dist/esm/cli.js",
     "start": "node .",
     "lint": "eslint ./src",
     "build": "rimraf dist && npm run lint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
