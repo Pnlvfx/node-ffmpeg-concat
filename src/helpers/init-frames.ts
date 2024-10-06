@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/no-array-reduce */
-/* eslint-disable sonarjs/cognitive-complexity */
 import ffmpeg from 'async-ffmpeg';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -9,9 +7,16 @@ import { extractVideoFrames } from './extract-video-frames.js';
 import { extractAudio } from './extract-audio.js';
 import { InitialScene, Scene } from '../types/internal.js';
 
-export const initFrames = async (opts: InitFramesOptions) => {
-  const { concurrency, videos, transition, transitions, frameFormat, outputDir, renderAudio = false, verbose } = opts;
-
+export const initFrames = async ({
+  concurrency,
+  videos,
+  transition,
+  transitions,
+  frameFormat,
+  outputDir,
+  renderAudio = false,
+  verbose,
+}: InitFramesOptions) => {
   if (transitions && videos.length - 1 !== transitions.length) {
     throw new Error('Number of transitions must equal number of videos minus one');
   }

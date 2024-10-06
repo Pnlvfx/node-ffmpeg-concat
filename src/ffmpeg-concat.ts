@@ -7,26 +7,21 @@ import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
 import rmrf from 'rmrf';
 
-// eslint-disable-next-line no-empty-function
-const noop = () => {};
-
-// eslint-disable-next-line sonarjs/cognitive-complexity
-const concat = async (opts: ConcatOptions) => {
-  const {
-    args,
-    log = noop,
-    concurrency = 4,
-    frameFormat = 'raw',
-    cleanupFrames = true,
-    transition,
-    transitions,
-    audio,
-    videos,
-    output,
-    tempDir,
-    verbose = false,
-  } = opts;
-
+const concat = async ({
+  args,
+  log,
+  concurrency = 4,
+  frameFormat = 'raw',
+  cleanupFrames = true,
+  transition,
+  transitions,
+  audio,
+  videos,
+  output,
+  tempDir,
+  verbose = false,
+  // eslint-disable-next-line sonarjs/cognitive-complexity
+}: ConcatOptions) => {
   if (tempDir) {
     fs.ensureDirSync(tempDir);
   }
@@ -53,7 +48,6 @@ const concat = async (opts: ConcatOptions) => {
       renderAudio: !audio,
       verbose,
     });
-
     if (verbose) {
       // eslint-disable-next-line no-console
       console.timeEnd('init-frames');
@@ -67,7 +61,9 @@ const concat = async (opts: ConcatOptions) => {
       frames,
       theme,
       onProgress: (p) => {
-        log(`render ${(100 * p).toFixed(0)}%`);
+        if (log) {
+          log(`render ${(100 * p).toFixed(0)}%`);
+        }
       },
     });
 
@@ -105,7 +101,9 @@ const concat = async (opts: ConcatOptions) => {
       theme,
       verbose,
       onProgress: (p) => {
-        log(`transcode ${(100 * p).toFixed(0)}%`);
+        if (log) {
+          log(`transcode ${(100 * p).toFixed(0)}%`);
+        }
       },
     });
     if (verbose) {

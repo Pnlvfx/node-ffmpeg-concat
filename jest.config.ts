@@ -1,22 +1,18 @@
 import type { JestConfigWithTsJest } from 'ts-jest';
 
-const jestConfig: JestConfigWithTsJest = {
-  verbose: true,
-  // detectOpenHandles: true,
-  extensionsToTreatAsEsm: ['.ts'],
+const config: JestConfigWithTsJest = {
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
+  extensionsToTreatAsEsm: ['.ts'],
   transform: {
-    '^.+\\.tsx?$': [
+    '^.+\\.(mt|t|cj|j)s$': [
       'ts-jest',
       {
         useESM: true,
-        isolatedModules: true,
       },
     ],
   },
-  testMatch: ['**/?(*.)+(test).ts'],
 };
 
-export default jestConfig;
+export default config;

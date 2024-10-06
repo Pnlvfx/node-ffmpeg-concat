@@ -5,7 +5,7 @@ import onTranscodeProgress from 'ffmpeg-on-progress-ts';
 
 interface TranscodeVideoOpts {
   args?: string[];
-  log: Log;
+  log?: Log;
   audio?: string;
   frameFormat: string;
   framePattern: string;

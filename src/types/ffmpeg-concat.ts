@@ -1,8 +1,8 @@
 import type { TransitionName, TransitionParams } from 'gl-transitions';
 
-export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
+export type FrameFormat = 'jpg' | 'png' | 'raw';
 
-export type Log = ((stdout?: string) => void) | undefined;
+export type Log = (stdout?: string) => void;
 
 export interface ConcatOptions {
   audio?: string;
