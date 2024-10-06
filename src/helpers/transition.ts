@@ -2,7 +2,7 @@ import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d';
 import { getPixels } from './get-pixels.js';
 import GL from 'gl';
-import transitions, { type TransitionName } from 'gl-transitions';
+import transitions, { type TransitionParams, type TransitionName } from 'gl-transitions';
 import createTransition, { type ResizeMode } from './gl-transition.js';
 
 export interface TransitionOpts {
@@ -15,7 +15,7 @@ interface DrawOpts {
   imagePathFrom: string;
   imagePathTo: string;
   progress: number;
-  params: Record<string, number | boolean>;
+  params: TransitionParams;
 }
 
 export const getTransition = ({ name = 'directionalwarp', resizeMode = 'stretch', gl }: TransitionOpts) => {
