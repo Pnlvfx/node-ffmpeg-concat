@@ -1,10 +1,9 @@
-import type { ResizeMode } from 'gl-transition';
 import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d';
 import { getPixels } from './get-pixels.js';
 import GL from 'gl';
 import transitions, { type TransitionName } from 'gl-transitions';
-import createTransition from './gl-transition.cjs';
+import createTransition, { type ResizeMode } from './gl-transition.js';
 
 export interface TransitionOpts {
   name: TransitionName;
@@ -23,7 +22,7 @@ export const getTransition = ({ name = 'directionalwarp', resizeMode = 'stretch'
   const buffer = createBuffer(gl, [-1, -1, -1, 4, 4, -1], gl.ARRAY_BUFFER, gl.STATIC_DRAW);
   const source = transitions.find((t) => t.name === name) ?? transitions.find((t) => t.name.toLowerCase() === 'fade');
   if (!source) throw new Error('Transition not found!');
-  const transition = createTransition.default(gl, source, { resizeMode });
+  const transition = createTransition(gl, source, { resizeMode });
 
   return {
     name,

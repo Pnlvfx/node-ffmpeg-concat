@@ -96,17 +96,18 @@ declare module 'gl-transitions' {
     unzoom?: number;
     floating?: number;
     persp?: number;
-    [key: string]: number | boolean;
+    [key: string]: number | boolean | { bind: (n: number) => number };
   }
 
-  interface ParamsType {
+  export interface ParamsTypes {
     color?: string;
     colorPhase?: string;
+    [key: string]: unknown;
   }
   export interface Transition {
     name: TransitionName;
-    paramsType: ParamsType;
-    defaultParams: DefaultParams;
+    paramsTypes: ParamsTypes;
+    defaultParams: TransitionParams;
     glsl: string;
     author: string;
     license: string;
