@@ -77,7 +77,6 @@
     "@types/gl-texture2d": "^2.1.6",
     "@types/hh-mm-ss": "^1.2.3",
     "@types/node": "^22.7.4",
-    "@types/url-parse": "^1.4.11",
     "async-ffmpeg": "^2024.9.21",
     "coraline": "github:Pnlvfx/coraline",
     "eslint": "^9.12.0",
