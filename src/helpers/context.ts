@@ -14,31 +14,16 @@ export interface Context {
   width: number;
   height: number;
   frameWriter: FrameWriter;
-  transition: GLTransition;
+  transition?: GLTransition;
   setTransition: ({ name, resizeMode }: Omit<TransitionOpts, 'gl'>) => undefined;
-  capture: (filePath: string) => Promise<void>;
   render: GLTransition['draw'];
   flush: FrameWriter['flush'];
   dispose: GLTransition['dispose'];
 }
 
-export const createContext = (opts: ContextOpts) => {
-  const { frameFormat, theme } = opts;
-
-  const { width, height } = theme;
-
+export const createContext = ({ frameFormat, theme: { width, height } }: ContextOpts) => {
   const gl = GL(width, height);
-
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!gl) {
-    // eslint-disable-next-line no-console
-    console.error(
-      'Failed to create OpenGL context. Please see https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions for compatibility.',
-    );
-    throw new Error('failed to create OpenGL context');
-  }
-
-  const ctx = {
+  const ctx: Context = {
     gl,
     width,
     height,
@@ -48,44 +33,37 @@ export const createContext = (opts: ContextOpts) => {
       height,
       frameFormat,
     }),
-  };
+    setTransition: ({ name, resizeMode }) => {
+      if (ctx.transition) {
+        if (ctx.transition.name === name) {
+          return;
+        }
 
-  ctx.setTransition = ({ name, resizeMode }) => {
-    if (ctx.transition) {
-      if (ctx.transition.name === name) {
-        return;
+        ctx.transition.dispose();
+        ctx.transition = undefined;
       }
 
-      ctx.transition.dispose();
-      ctx.transition = undefined;
-    }
-
-    ctx.transition = getTransition({
-      gl,
-      name,
-      resizeMode,
-    });
+      ctx.transition = getTransition({
+        gl,
+        name,
+        resizeMode,
+      });
+    },
+    render: async (...args) => {
+      if (!ctx.transition) return;
+      await ctx.transition.draw(...args);
+    },
+    flush: () => {
+      ctx.frameWriter.flush();
+    },
+    dispose: () => {
+      if (ctx.transition) {
+        ctx.transition.dispose();
+        ctx.transition = undefined;
+      }
+      gl.getExtension('STACKGL_destroy_context')?.destroy();
+    },
   };
 
-  ctx.capture = ctx.frameWriter.write.bind(ctx.frameWriter);
-
-  ctx.render = (...args) => {
-    if (!ctx.transition) return;
-    return ctx.transition.draw(...args);
-  };
-
-  ctx.flush = () => {
-    ctx.frameWriter.flush();
-  };
-
-  ctx.dispose = () => {
-    if (ctx.transition) {
-      ctx.transition.dispose();
-      ctx.transition = undefined;
-    }
-
-    gl.getExtension('STACKGL_destroy_context')?.destroy();
-  };
-
-  return ctx as Context;
+  return ctx;
 };

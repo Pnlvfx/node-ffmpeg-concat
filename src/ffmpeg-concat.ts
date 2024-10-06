@@ -22,23 +22,16 @@ const concat = async ({
   verbose = false,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 }: ConcatOptions) => {
-  if (tempDir) {
-    fs.ensureDirSync(tempDir);
-  }
-
+  if (tempDir) await fs.ensureDir(tempDir);
   const temp = tempDir ?? temporaryDirectory();
-
   if (verbose) {
     // eslint-disable-next-line no-console
     console.time('ffmpeg-concat');
+    // eslint-disable-next-line no-console
+    console.time('init-frames');
   }
 
   try {
-    if (verbose) {
-      // eslint-disable-next-line no-console
-      console.time('init-frames');
-    }
-
     const { frames, scenes, theme } = await initFrames({
       concurrency,
       videos,
@@ -136,5 +129,4 @@ const concat = async ({
 
 export default concat;
 
-export { default as transitions, type GLTransition } from 'gl-transitions';
-export type { Transition } from './types/ffmpeg-concat.js';
+export { default as transitions, type Transition } from 'gl-transitions';

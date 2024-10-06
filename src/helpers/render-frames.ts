@@ -74,7 +74,7 @@ export const renderFrame = async ({ ctx, frame, frameFormat, index, onProgress, 
       params: current.transition.params,
     });
 
-    await ctx.capture(filePath);
+    await ctx.frameWriter.write(filePath);
   } else {
     await fs.move(cFramePath, filePath, { overwrite: true });
   }

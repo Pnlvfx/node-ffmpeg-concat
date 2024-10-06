@@ -12,14 +12,14 @@ export interface ConcatOptions {
   log?: Log;
   output: string;
   tempDir?: string;
-  transition?: Transition;
-  transitions?: readonly Transition[];
+  transition?: TransitionInput;
+  transitions?: readonly TransitionInput[];
   videos: readonly string[];
   verbose?: boolean;
   args?: string[];
 }
 
-export interface Transition {
+interface TransitionInput {
   duration: number;
   name: TransitionName;
   params?: TransitionParams;
@@ -27,8 +27,8 @@ export interface Transition {
 
 interface InitOptions {
   videos: readonly string[];
-  transition?: Transition;
-  transitions?: readonly Transition[];
+  transition?: TransitionInput;
+  transitions?: readonly TransitionInput[];
   frameFormat: FrameFormat;
   outputDir: string;
   renderAudio: boolean;
