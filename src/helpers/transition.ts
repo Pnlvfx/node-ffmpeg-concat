@@ -1,11 +1,12 @@
-import createTransition, { type ResizeMode } from 'gl-transition';
+import type { ResizeMode } from 'gl-transition';
 import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d';
 import { getPixels } from './get-pixels.js';
 import GL from 'gl';
 import transitions, { type TransitionName } from 'gl-transitions';
+import createTransition from './gl-transition.cjs';
 
-interface TransitionOpts {
+export interface TransitionOpts {
   name: TransitionName;
   resizeMode?: ResizeMode;
   gl: WebGLRenderingContext & GL.StackGLExtension;
@@ -59,3 +60,5 @@ export const getTransition = ({ name = 'directionalwarp', resizeMode = 'stretch'
     },
   };
 };
+
+export type GLTransition = ReturnType<typeof getTransition>;

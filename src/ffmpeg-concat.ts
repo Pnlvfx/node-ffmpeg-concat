@@ -38,6 +38,7 @@ const concat = async ({
       // eslint-disable-next-line no-console
       console.time('init-frames');
     }
+
     const { frames, scenes, theme } = await initFrames({
       concurrency,
       videos,
@@ -48,6 +49,7 @@ const concat = async ({
       renderAudio: !audio,
       verbose,
     });
+
     if (verbose) {
       // eslint-disable-next-line no-console
       console.timeEnd('init-frames');
@@ -106,6 +108,7 @@ const concat = async ({
         }
       },
     });
+
     if (verbose) {
       // eslint-disable-next-line no-console
       console.timeEnd('transcode-video');
@@ -134,4 +137,4 @@ const concat = async ({
 export default concat;
 
 export { default as transitions, type GLTransition } from 'gl-transitions';
-export type { ConcatOptions, ExtractAudioOpts, FrameFormat, InitFramesOptions, InitSceneOptions, Log, Transition } from './types/ffmpeg-concat.js';
+export type { Transition } from './types/ffmpeg-concat.js';

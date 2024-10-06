@@ -2,7 +2,7 @@ import type { Theme } from '../types/internal.js';
 import type { FrameFormat } from '../types/ffmpeg-concat.js';
 import { type FrameWriter, createFrameWriter } from './frame-writer.js';
 import GL from 'gl';
-import { getTransition } from './transition.js';
+import { getTransition, GLTransition, TransitionOpts } from './transition.js';
 
 interface ContextOpts {
   frameFormat: FrameFormat;
@@ -14,12 +14,12 @@ export interface Context {
   width: number;
   height: number;
   frameWriter: FrameWriter;
-  transition: GLTransitionFn | null;
-  setTransition: ({ name, resizeMode }: { name: string; resizeMode?: ResizeMode }) => undefined;
+  transition: GLTransition;
+  setTransition: ({ name, resizeMode }: Omit<TransitionOpts, 'gl'>) => undefined;
   capture: (filePath: string) => Promise<void>;
-  render: GLTransitionFn['draw'];
+  render: GLTransition['draw'];
   flush: FrameWriter['flush'];
-  dispose: GLTransitionFn['dispose'];
+  dispose: GLTransition['dispose'];
 }
 
 export const createContext = (opts: ContextOpts) => {
@@ -38,18 +38,16 @@ export const createContext = (opts: ContextOpts) => {
     throw new Error('failed to create OpenGL context');
   }
 
-  const frameWriter = createFrameWriter({
+  const ctx = {
     gl,
     width,
     height,
-    frameFormat,
-  });
-
-  const ctx: Partial<Context> & { frameWriter: FrameWriter } = {
-    gl,
-    width,
-    height,
-    frameWriter,
+    frameWriter: createFrameWriter({
+      gl,
+      width,
+      height,
+      frameFormat,
+    }),
   };
 
   ctx.setTransition = ({ name, resizeMode }) => {
@@ -72,9 +70,8 @@ export const createContext = (opts: ContextOpts) => {
   ctx.capture = ctx.frameWriter.write.bind(ctx.frameWriter);
 
   ctx.render = (...args) => {
-    if (ctx.transition) {
-      return ctx.transition.draw(...args);
-    }
+    if (!ctx.transition) return;
+    return ctx.transition.draw(...args);
   };
 
   ctx.flush = () => {

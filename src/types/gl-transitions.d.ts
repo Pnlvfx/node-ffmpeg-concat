@@ -103,7 +103,7 @@ declare module 'gl-transitions' {
     color?: string;
     colorPhase?: string;
   }
-  export interface GLTransition {
+  export interface Transition {
     name: TransitionName;
     paramsType: ParamsType;
     defaultParams: DefaultParams;
@@ -114,7 +114,7 @@ declare module 'gl-transitions' {
     updatedAt: string;
   }
 
-  const transitions: GLTransition[];
+  const transitions: Transition[];
 
   export default transitions;
 }

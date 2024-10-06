@@ -25,20 +25,7 @@ export interface Transition {
   params?: TransitionParams;
 }
 
-export interface ExtractAudioOpts {
-  videoPath: string;
-  outputFileName: string;
-  start: number;
-  duration: number;
-}
-
-export interface InitFramesOptions extends Omit<InitSceneOptions, 'index' | 'video'> {
-  concurrency?: number;
-}
-
-export interface InitSceneOptions {
-  index: number;
-  video: string;
+interface InitOptions {
   videos: readonly string[];
   transition?: Transition;
   transitions?: readonly Transition[];
@@ -46,4 +33,13 @@ export interface InitSceneOptions {
   outputDir: string;
   renderAudio: boolean;
   verbose?: boolean;
+}
+
+export interface InitFramesOptions extends InitOptions {
+  concurrency?: number;
+}
+
+export interface InitSceneOptions extends InitOptions {
+  index: number;
+  video: string;
 }
