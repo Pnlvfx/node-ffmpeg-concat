@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["tools", "eslint.config.js", "jest.config.ts", "__tests__"]
+}

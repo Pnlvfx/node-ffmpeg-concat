@@ -1,6 +1,6 @@
 import ffmpeg from 'fluent-ffmpeg';
 import onTranscodeProgress from 'ffmpeg-on-progress';
-import { Log } from '../types/index.js';
+import { Log } from '../types/ffmpeg-concat.js';
 import { OnProgress, Theme } from '../types/internal.js';
 
 interface TranscodeVideoOpts {

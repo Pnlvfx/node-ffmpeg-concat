@@ -4,7 +4,7 @@ import ffmpeg from 'async-ffmpeg';
 import fs from 'node:fs';
 import path from 'node:path';
 import pMap from 'p-map';
-import { InitFramesOptions, InitSceneOptions } from '../types/index.js';
+import { InitFramesOptions, InitSceneOptions } from '../types/ffmpeg-concat.js';
 import { extractVideoFrames } from './extract-video-frames.js';
 import { extractAudio } from './extract-audio.js';
 import { InitialScene, Scene } from '../types/internal.js';

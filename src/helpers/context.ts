@@ -1,18 +1,12 @@
 import type { ResizeMode, Theme } from '../types/internal.js';
-import type { FrameFormat } from '../types/index.js';
+import type { FrameFormat } from '../types/ffmpeg-concat.js';
 import GL from 'gl';
-import { FrameWriter, createFrameWriter } from './frame-writer.js';
-import { DrawOpts, getTransition } from './transition.js';
+import { type FrameWriter, createFrameWriter } from './frame-writer.js';
+import { getTransition } from './transition.js';
 
 interface ContextOpts {
   frameFormat: FrameFormat;
   theme: Theme;
-}
-
-interface GLTransitionFn {
-  name: string;
-  draw: ({ imagePathFrom, imagePathTo, progress, params }: DrawOpts) => Promise<void>;
-  dispose: () => void;
 }
 
 export interface Context {
@@ -28,21 +22,23 @@ export interface Context {
   dispose: GLTransitionFn['dispose'];
 }
 
-export const createContext = async (opts: ContextOpts) => {
+export const createContext = (opts: ContextOpts) => {
   const { frameFormat, theme } = opts;
 
   const { width, height } = theme;
 
   const gl = GL(width, height);
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!gl) {
+    // eslint-disable-next-line no-console
     console.error(
       'Failed to create OpenGL context. Please see https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions for compatibility.',
     );
     throw new Error('failed to create OpenGL context');
   }
 
-  const frameWriter = await createFrameWriter({
+  const frameWriter = createFrameWriter({
     gl,
     width,
     height,
@@ -54,7 +50,6 @@ export const createContext = async (opts: ContextOpts) => {
     width,
     height,
     frameWriter,
-    transition: undefined,
   };
 
   ctx.setTransition = ({ name, resizeMode }) => {
@@ -76,17 +71,17 @@ export const createContext = async (opts: ContextOpts) => {
 
   ctx.capture = ctx.frameWriter.write.bind(ctx.frameWriter);
 
-  ctx.render = async (...args) => {
+  ctx.render = (...args) => {
     if (ctx.transition) {
       return ctx.transition.draw(...args);
     }
   };
 
-  ctx.flush = async () => {
-    return ctx.frameWriter.flush();
+  ctx.flush = () => {
+    ctx.frameWriter.flush();
   };
 
-  ctx.dispose = async () => {
+  ctx.dispose = () => {
     if (ctx.transition) {
       ctx.transition.dispose();
       ctx.transition = undefined;

@@ -1,7 +1,8 @@
 /* eslint-disable unicorn/no-null */
+
 import fs from 'node:fs';
 import sharp, { type Sharp } from 'sharp';
-import { FrameFormat } from '../types/index.js';
+import { FrameFormat } from '../types/ffmpeg-concat.js';
 import GL from 'gl';
 
 const supportedFormats = new Set(['png', 'jpg', 'raw']);
@@ -13,18 +14,12 @@ interface FrameWriterOpts {
   height: number;
 }
 
-type Worker = {
+interface Worker {
   byteArray: Uint8Array;
   encoder: Sharp | null;
-};
-
-export interface FrameWriter {
-  write: (filePath: string) => Promise<void>;
-  flush: () => Promise<void>;
-  dispose: () => void;
 }
 
-export const createFrameWriter = async (opts: FrameWriterOpts): Promise<FrameWriter> => {
+export const createFrameWriter = (opts: FrameWriterOpts) => {
   const { frameFormat = 'raw', gl, width, height } = opts;
 
   if (!supportedFormats.has(frameFormat)) throw new Error(`frame writer unsupported format "${frameFormat}"`);
@@ -74,7 +69,7 @@ export const createFrameWriter = async (opts: FrameWriterOpts): Promise<FrameWri
       }
     },
 
-    flush: async () => {
+    flush: () => {
       return;
     },
 
@@ -83,3 +78,5 @@ export const createFrameWriter = async (opts: FrameWriterOpts): Promise<FrameWri
     },
   };
 };
+
+export type FrameWriter = ReturnType<typeof createFrameWriter>;

@@ -1,5 +1,3 @@
-import Transitions from 'gl-transitions';
-
 export type TransitionName =
   | 'Bounce'
   | 'BowTieHorizontal'
@@ -114,7 +112,3 @@ export interface GLTransition {
   createdAt: string;
   updatedAt: string;
 }
-
-const transitions: GLTransition[] = Transitions;
-
-export default transitions;

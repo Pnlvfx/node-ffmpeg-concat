@@ -1,16 +1,16 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-import type { ConcatOptions } from './types/index.js';
+import type { ConcatOptions } from './types/ffmpeg-concat.js';
 import fs from 'fs-extra';
-import rmfr from 'rmfr';
 import { temporaryDirectory } from 'tempy';
 import { initFrames } from './helpers/init-frames.js';
 import { renderFrames } from './helpers/render-frames.js';
 import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
+import { rimraf } from 'rimraf';
 
 // eslint-disable-next-line no-empty-function
 const noop = () => {};
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 const concat = async (opts: ConcatOptions) => {
   const {
     args,
@@ -31,12 +31,18 @@ const concat = async (opts: ConcatOptions) => {
     fs.ensureDirSync(tempDir);
   }
 
-  const temp = tempDir || temporaryDirectory();
+  const temp = tempDir ?? temporaryDirectory();
 
-  console.time('ffmpeg-concat');
+  if (verbose) {
+    // eslint-disable-next-line no-console
+    console.time('ffmpeg-concat');
+  }
 
   try {
-    console.time('init-frames');
+    if (verbose) {
+      // eslint-disable-next-line no-console
+      console.time('init-frames');
+    }
     const { frames, scenes, theme } = await initFrames({
       concurrency,
       videos,
@@ -47,9 +53,14 @@ const concat = async (opts: ConcatOptions) => {
       renderAudio: !audio,
       verbose,
     });
-    console.timeEnd('init-frames');
 
-    console.time('render-frames');
+    if (verbose) {
+      // eslint-disable-next-line no-console
+      console.timeEnd('init-frames');
+      // eslint-disable-next-line no-console
+      console.time('render-frames');
+    }
+
     const framePattern = await renderFrames({
       outputDir: temp,
       frameFormat,
@@ -59,9 +70,14 @@ const concat = async (opts: ConcatOptions) => {
         log(`render ${(100 * p).toFixed(0)}%`);
       },
     });
-    console.timeEnd('render-frames');
 
-    console.time('render-audio');
+    if (verbose) {
+      // eslint-disable-next-line no-console
+      console.timeEnd('render-frames');
+      // eslint-disable-next-line no-console
+      console.time('render-audio');
+    }
+
     let concatAudioFile = audio;
     if (!audio && scenes.filter((s) => s.sourceAudioPath).length === scenes.length) {
       concatAudioFile = await renderAudio({
@@ -71,9 +87,13 @@ const concat = async (opts: ConcatOptions) => {
         fileName: 'audioConcat.mp3',
       });
     }
-    console.timeEnd('render-audio');
 
-    console.time('transcode-video');
+    if (verbose) {
+      // eslint-disable-next-line no-console
+      console.timeEnd('render-audio');
+      // eslint-disable-next-line no-console
+      console.time('transcode-video');
+    }
 
     await transcodeVideo({
       args,
@@ -88,23 +108,33 @@ const concat = async (opts: ConcatOptions) => {
         log(`transcode ${(100 * p).toFixed(0)}%`);
       },
     });
-    console.timeEnd('transcode-video');
+    if (verbose) {
+      // eslint-disable-next-line no-console
+      console.timeEnd('transcode-video');
+    }
   } catch (err) {
     if (cleanupFrames) {
-      await rmfr(temp);
+      await rimraf(temp);
     }
-    console.timeEnd('ffmpeg-concat');
+    if (verbose) {
+      // eslint-disable-next-line no-console
+      console.timeEnd('ffmpeg-concat');
+    }
     throw err;
   }
 
   if (cleanupFrames && !tempDir) {
-    await rmfr(temp);
+    await rimraf(temp);
   }
 
-  console.timeEnd('ffmpeg-concat');
+  if (verbose) {
+    // eslint-disable-next-line no-console
+    console.timeEnd('ffmpeg-concat');
+  }
 };
 
 export default concat;
 
-export { default as transitions, type TransitionName } from './helpers/transitions-wrap.js';
-export type { ConcatOptions, ExtractAudioOpts, FrameFormat, InitFramesOptions, InitSceneOptions, Log, Transition } from './types/index.js';
+export { default as transitions } from 'gl-transitions';
+export type { TransitionName } from './types/transition.js';
+export type { ConcatOptions, ExtractAudioOpts, FrameFormat, InitFramesOptions, InitSceneOptions, Log, Transition } from './types/ffmpeg-concat.js';

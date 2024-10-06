@@ -1,4 +1,4 @@
-import type { ExtractAudioOpts } from '../types/index.js';
+import type { ExtractAudioOpts } from '../types/ffmpeg-concat.js';
 import ffmpeg from 'async-ffmpeg';
 
 export const extractAudio = (opts: ExtractAudioOpts) => {

@@ -1,4 +1,4 @@
-import type { FrameFormat } from '../types/index.js';
+import type { FrameFormat } from '../types/ffmpeg-concat.js';
 import type { Frame, OnProgress, Theme } from '../types/internal.js';
 import fs from 'fs-extra';
 import path from 'node:path';

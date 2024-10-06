@@ -1,20 +1,20 @@
-import type { DefaultParams, TransitionName } from '../helpers/transitions-wrap.js';
+import type { DefaultParams, TransitionName } from './transition.js';
 
 export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
 
 export type Log = ((stdout?: string) => void) | undefined;
 
 export interface ConcatOptions {
-  audio?: string | undefined;
-  cleanupFrames?: boolean | undefined;
-  concurrency?: number | undefined;
+  audio?: string;
+  cleanupFrames?: boolean;
+  concurrency?: number;
   frameFormat?: FrameFormat;
   log?: Log;
   output: string;
-  tempDir?: string | undefined;
-  transition?: Transition | undefined;
-  transitions?: ReadonlyArray<Transition> | undefined;
-  videos: ReadonlyArray<string>;
+  tempDir?: string;
+  transition?: Transition;
+  transitions?: readonly Transition[];
+  videos: readonly string[];
   verbose?: boolean;
   args?: string[];
 }
@@ -39,9 +39,9 @@ export interface InitFramesOptions extends Omit<InitSceneOptions, 'index' | 'vid
 export interface InitSceneOptions {
   index: number;
   video: string;
-  videos: ReadonlyArray<string>;
+  videos: readonly string[];
   transition?: Transition;
-  transitions?: ReadonlyArray<Transition> | undefined;
+  transitions?: readonly Transition[];
   frameFormat: FrameFormat;
   outputDir: string;
   renderAudio: boolean;

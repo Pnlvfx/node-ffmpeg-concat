@@ -1,6 +1,7 @@
-import type { Transition } from './index.js';
+import type { Transition } from './ffmpeg-concat.js';
 
-export type ResizeMode = 'stretch' | string;
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+export type ResizeMode = string | 'stretch';
 
 export type OnProgress = (p: number) => void;
 

@@ -1,5 +1,5 @@
+import type { Writable } from 'node:stream';
 import ffmpeg from 'fluent-ffmpeg';
-import { Writable } from 'node:stream';
 
 interface ExtractVideoFramesOpts {
   videoPath: string;
@@ -11,19 +11,24 @@ export const extractVideoFrames = (opts: ExtractVideoFramesOpts) => {
   const { videoPath, framePattern, verbose = false } = opts;
   return new Promise((resolve, reject) => {
     const cmd = ffmpeg(videoPath)
-      // eslint-disable-next-line prettier/prettier
-      .outputOptions([ 
-        '-loglevel', 'info',
-        '-pix_fmt', 'rgba',
-        '-start_number', '0'
-      ])
+      .outputOptions(['-loglevel', 'info', '-pix_fmt', 'rgba', '-start_number', '0'])
       .output(framePattern)
-      //.on('start', (cmd) => console.log({ cmd }))
-      .on('end', () => resolve(framePattern))
-      .on('error', (err) => reject(err));
+      .on('start', (cmd) => {
+        if (verbose) {
+          // eslint-disable-next-line no-console
+          console.log({ cmd });
+        }
+      })
+      .on('end', () => {
+        resolve(framePattern);
+      })
+      .on('error', reject);
 
     if (verbose) {
-      cmd.on('stderr', (err) => console.error(err));
+      cmd.on('stderr', (err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      });
     }
 
     cmd.run();

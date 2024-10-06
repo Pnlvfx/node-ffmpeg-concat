@@ -1,4 +1,4 @@
-import type { Log } from '../types/index.js';
+import type { Log } from '../types/ffmpeg-concat.js';
 import type { Scene } from '../types/internal.js';
 import fs from 'fs-extra';
 import ffmpeg from 'fluent-ffmpeg';
