@@ -5,7 +5,7 @@ import { initFrames } from './helpers/init-frames.js';
 import { renderFrames } from './helpers/render-frames.js';
 import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
-import { rimraf } from 'rimraf';
+import rmrf from 'rmrf';
 
 // eslint-disable-next-line no-empty-function
 const noop = () => {};
@@ -114,7 +114,7 @@ const concat = async (opts: ConcatOptions) => {
     }
   } catch (err) {
     if (cleanupFrames) {
-      await rimraf(temp);
+      rmrf(temp);
     }
     if (verbose) {
       // eslint-disable-next-line no-console
@@ -124,7 +124,7 @@ const concat = async (opts: ConcatOptions) => {
   }
 
   if (cleanupFrames && !tempDir) {
-    await rimraf(temp);
+    rmrf(temp);
   }
 
   if (verbose) {
@@ -135,6 +135,5 @@ const concat = async (opts: ConcatOptions) => {
 
 export default concat;
 
-export { default as transitions } from 'gl-transitions';
-export type { TransitionName } from './types/transition.js';
+export { default as transitions, type GLTransition } from 'gl-transitions';
 export type { ConcatOptions, ExtractAudioOpts, FrameFormat, InitFramesOptions, InitSceneOptions, Log, Transition } from './types/ffmpeg-concat.js';

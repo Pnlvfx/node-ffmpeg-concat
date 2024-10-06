@@ -1,13 +1,12 @@
-import createTransition from 'gl-transition';
+import createTransition, { type ResizeMode } from 'gl-transition';
 import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d';
 import { getPixels } from './get-pixels.js';
 import GL from 'gl';
-import type { ResizeMode } from '../types/internal.js';
-import transitions from './transitions-wrap.js';
+import transitions, { type TransitionName } from 'gl-transitions';
 
 interface TransitionOpts {
-  name: string;
+  name: TransitionName;
   resizeMode?: ResizeMode;
   gl: WebGLRenderingContext & GL.StackGLExtension;
 }
@@ -16,18 +15,13 @@ export interface DrawOpts {
   imagePathFrom: string;
   imagePathTo: string;
   progress: number;
-  params: unknown;
+  params: Record<string, number | boolean>;
 }
 
-export const getTransition = (opts: TransitionOpts) => {
-  const { name = 'directionalwarp', resizeMode = 'stretch', gl } = opts;
-
+export const getTransition = ({ name = 'directionalwarp', resizeMode = 'stretch', gl }: TransitionOpts) => {
   const buffer = createBuffer(gl, [-1, -1, -1, 4, 4, -1], gl.ARRAY_BUFFER, gl.STATIC_DRAW);
-
-  const transitionName = name.toLowerCase();
-
-  const source = transitions.find((t) => t.name.toLowerCase() === transitionName) || transitions.find((t) => t.name.toLowerCase() === 'fade');
-
+  const source = transitions.find((t) => t.name === name) ?? transitions.find((t) => t.name.toLowerCase() === 'fade');
+  if (!source) throw new Error('Transition not found!');
   const transition = createTransition.default(gl, source, { resizeMode });
 
   return {
@@ -59,7 +53,6 @@ export const getTransition = (opts: TransitionOpts) => {
       textureFrom.dispose();
       textureTo.dispose();
     },
-
     dispose: () => {
       buffer.dispose();
       transition.dispose();

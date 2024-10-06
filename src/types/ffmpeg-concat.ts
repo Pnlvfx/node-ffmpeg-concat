@@ -1,4 +1,4 @@
-import type { DefaultParams, TransitionName } from './transition.js';
+import type { TransitionName, TransitionParams } from 'gl-transitions';
 
 export type FrameFormat = 'jpg' | 'png' | 'raw' | undefined;
 
@@ -22,7 +22,7 @@ export interface ConcatOptions {
 export interface Transition {
   duration: number;
   name: TransitionName;
-  params?: DefaultParams;
+  params?: TransitionParams;
 }
 
 export interface ExtractAudioOpts {

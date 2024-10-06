@@ -1,7 +1,7 @@
-import type { ResizeMode, Theme } from '../types/internal.js';
+import type { Theme } from '../types/internal.js';
 import type { FrameFormat } from '../types/ffmpeg-concat.js';
-import GL from 'gl';
 import { type FrameWriter, createFrameWriter } from './frame-writer.js';
+import GL from 'gl';
 import { getTransition } from './transition.js';
 
 interface ContextOpts {
