@@ -12,7 +12,7 @@ export interface TransitionOpts {
   gl: WebGLRenderingContext & GL.StackGLExtension;
 }
 
-export interface DrawOpts {
+interface DrawOpts {
   imagePathFrom: string;
   imagePathTo: string;
   progress: number;

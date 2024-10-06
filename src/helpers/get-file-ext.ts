@@ -1,4 +1,4 @@
-import parseUrl from 'url-parse';
+import path from 'node:path';
 
 const extWhitelist = new Set([
   // videos
@@ -27,10 +27,7 @@ const extWhitelist = new Set([
 ]);
 
 export const getFileExt = (url: string, { strict = true } = {}) => {
-  const { pathname } = parseUrl(url);
-  const parts = pathname.split('.');
-  const ext = (parts.at(-1) ?? '').trim().toLowerCase();
-
+  const ext = path.extname(url).replaceAll('.', '');
   if (!strict || extWhitelist.has(ext)) {
     return ext;
   }

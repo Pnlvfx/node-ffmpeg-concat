@@ -5,9 +5,9 @@ interface ExtractAudioOpts {
   outputFileName: string;
   start: number;
   duration: number;
+  debug?: boolean;
 }
 
-export const extractAudio = (opts: ExtractAudioOpts) => {
-  const { videoPath, outputFileName, start, duration } = opts;
-  return ffmpeg({ input: videoPath, audioCodec: 'libmp3lame', debug: true, inputSeeking: start, duration, output: outputFileName });
+export const extractAudio = ({ videoPath, outputFileName, start, duration, debug }: ExtractAudioOpts) => {
+  return ffmpeg({ input: videoPath, audioCodec: 'libmp3lame', debug, inputSeeking: start, duration, output: outputFileName });
 };

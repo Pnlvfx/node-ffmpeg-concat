@@ -11,8 +11,7 @@ const run = async () => {
   await concat({
     videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
     output: path.join('media', output),
-    transition: { name: 'directionalwipe', duration: 500 },
-    verbose: true,
+    transition: { name: 'directionalwipe', duration: 500, params: {} },
   });
 };
 

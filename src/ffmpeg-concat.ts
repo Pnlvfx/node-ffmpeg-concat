@@ -32,7 +32,7 @@ const concat = async ({
   }
 
   try {
-    const { frames, scenes, theme } = await initFrames({
+    const { frames, theme, numberOfScenes, audioScenes } = await initFrames({
       concurrency,
       videos,
       transition,
@@ -70,10 +70,10 @@ const concat = async ({
     }
 
     let concatAudioFile = audio;
-    if (!audio && scenes.filter((s) => s.sourceAudioPath).length === scenes.length) {
+    if (!audio && audioScenes.length === numberOfScenes) {
       concatAudioFile = await renderAudio({
         log,
-        scenes,
+        audioScenes,
         outputDir: temp,
         fileName: 'audioConcat.mp3',
       });

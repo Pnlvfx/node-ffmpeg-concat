@@ -7,8 +7,7 @@ interface ExtractVideoFramesOpts {
   verbose?: boolean;
 }
 
-export const extractVideoFrames = (opts: ExtractVideoFramesOpts) => {
-  const { videoPath, framePattern, verbose = false } = opts;
+export const extractVideoFrames = ({ videoPath, framePattern, verbose = false }: ExtractVideoFramesOpts) => {
   return new Promise((resolve, reject) => {
     const cmd = ffmpeg(videoPath)
       .outputOptions(['-loglevel', 'info', '-pix_fmt', 'rgba', '-start_number', '0'])
@@ -25,10 +24,8 @@ export const extractVideoFrames = (opts: ExtractVideoFramesOpts) => {
       .on('error', reject);
 
     if (verbose) {
-      cmd.on('stderr', (err) => {
-        // eslint-disable-next-line no-console
-        console.error(err);
-      });
+      // eslint-disable-next-line no-console
+      cmd.on('stderr', console.error);
     }
 
     cmd.run();

@@ -19,10 +19,10 @@ export interface ConcatOptions {
   args?: string[];
 }
 
-interface TransitionInput {
+export interface TransitionInput {
   duration: number;
   name: TransitionName;
-  params?: TransitionParams;
+  params: TransitionParams;
 }
 
 interface InitOptions {

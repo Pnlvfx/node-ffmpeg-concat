@@ -1,16 +1,18 @@
 import type { FrameFormat } from '../types/ffmpeg-concat.js';
-import type { Frame, Theme } from '../types/internal.js';
+import type { Theme } from '../types/internal.js';
+import type { ProgressFunction } from './on-progress.js';
+import type { Frame } from './init-frames.js';
+import { type Context, createContext } from './context.js';
 import fs from 'fs-extra';
 import path from 'node:path';
 import pMap from 'p-map';
-import { Context, createContext } from './context.js';
 
 interface RenderFramesOpts {
   frameFormat: FrameFormat;
   frames: Frame[];
   outputDir: string;
   theme: Theme;
-  onProgress: OnProgress;
+  onProgress: ProgressFunction;
 }
 
 export const renderFrames = async ({ frameFormat, frames, onProgress, outputDir, theme }: RenderFramesOpts) => {
@@ -38,7 +40,7 @@ export const renderFrames = async ({ frameFormat, frames, onProgress, outputDir,
   );
 
   ctx.flush();
-  await ctx.dispose();
+  ctx.dispose();
 
   return path.join(outputDir, `%012d.${frameFormat}`); // FRAMEPATTERN
 };
@@ -48,12 +50,12 @@ interface RenderFrameOpts {
   frame: Frame;
   frameFormat: FrameFormat;
   index: number;
-  onProgress: OnProgress;
+  onProgress: ProgressFunction;
   outputDir: string;
   theme: Theme;
 }
 
-export const renderFrame = async ({ ctx, frame, frameFormat, index, onProgress, outputDir, theme }: RenderFrameOpts) => {
+const renderFrame = async ({ ctx, frame, frameFormat, index, onProgress, outputDir, theme }: RenderFrameOpts) => {
   const fileName = `${index.toString().padStart(12, '0')}.${frameFormat}`;
   const filePath = path.join(outputDir, fileName);
   const { current, next } = frame;
@@ -79,7 +81,7 @@ export const renderFrame = async ({ ctx, frame, frameFormat, index, onProgress, 
     await fs.move(cFramePath, filePath, { overwrite: true });
   }
 
-  if (onProgress && index % 16 === 0) {
+  if (index % 16 === 0) {
     onProgress(index / theme.numFrames);
   }
 };

@@ -1,7 +1,7 @@
 import coraline from 'coraline';
 
 const unused = coraline.findUnusedExports({
-  ignoreFiles: ['eslint.config.js', 'jest.config.ts'],
+  ignoreFiles: ['ffmpeg-concat.ts', 'eslint.config.js', 'jest.config.ts'],
   ignoreVars: [],
 });
 

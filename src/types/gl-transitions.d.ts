@@ -96,7 +96,7 @@ declare module 'gl-transitions' {
     unzoom?: number;
     floating?: number;
     persp?: number;
-    [key: string]: unknown;
+    [key: string]: number | boolean;
   }
 
   interface ParamsType {

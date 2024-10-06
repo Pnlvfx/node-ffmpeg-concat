@@ -1,10 +1,12 @@
-import type { InitFramesOptions, InitSceneOptions } from '../types/ffmpeg-concat.js';
+import type { InitFramesOptions, InitSceneOptions, TransitionInput } from '../types/ffmpeg-concat.js';
 import ffmpeg from 'async-ffmpeg';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import pMap from 'p-map';
 import { extractVideoFrames } from './extract-video-frames.js';
 import { extractAudio } from './extract-audio.js';
+
+export type Frame = Awaited<ReturnType<typeof initFrames>>['frames'][0];
 
 export const initFrames = async ({
   concurrency,
@@ -15,6 +17,7 @@ export const initFrames = async ({
   outputDir,
   renderAudio = false,
   verbose,
+  // eslint-disable-next-line sonarjs/cognitive-complexity
 }: InitFramesOptions) => {
   if (transitions && videos.length - 1 !== transitions.length) {
     throw new Error('Number of transitions must equal number of videos minus one');
@@ -49,19 +52,17 @@ export const initFrames = async ({
     const frameStart = numFrames;
     const numFramesTransition = Math.floor((scene.transition.duration * sceneInit.fps) / 1000);
     const numFramesPreTransition = Math.max(0, scene.numFrames - numFramesTransition);
-    scene.frameStart = frameStart;
-    scene.numFramesTransition = numFramesTransition;
-    scene.numFramesPreTransition = numFramesPreTransition;
-
     numFrames += numFramesPreTransition;
 
     for (let frame = 0; frame < scene.numFrames; ++frame) {
       const cFrame = frameStart + frame;
 
       if (!frames[cFrame]) {
+        const current = Object.assign(scene, { frameStart, numFramesTransition, numFramesPreTransition });
+        const next = frame < numFramesPreTransition ? undefined : (scenes[index + 1] as typeof current);
         frames[cFrame] = {
-          current: scene,
-          next: frame < numFramesPreTransition ? undefined : scenes[index + 1],
+          current,
+          next,
         };
       }
     }
@@ -69,9 +70,18 @@ export const initFrames = async ({
 
   const duration = scenes.reduce((sum, scene) => scene.duration + sum - scene.transition.duration, 0);
 
+  const audioScenes = [];
+
+  for (const sc of scenes) {
+    if (sc.sourceAudioPath) {
+      audioScenes.push(sc.sourceAudioPath);
+    }
+  }
+
   return {
     frames,
-    scenes,
+    numberOfScenes: scenes.length,
+    audioScenes,
     theme: {
       numFrames,
       duration,
@@ -82,6 +92,7 @@ export const initFrames = async ({
   };
 };
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 const initScene = async ({ frameFormat, index, outputDir, renderAudio, transition, transitions, verbose, videos, video }: InitSceneOptions) => {
   const probe = await ffmpeg.ffprobe(video);
   const format = probe.format.format_name ?? 'unknown';
@@ -92,7 +103,7 @@ const initScene = async ({ frameFormat, index, outputDir, renderAudio, transitio
   }
   const framePattern = path.join(outputDir, `scene-${index.toString()}-%012d.${frameFormat}`);
   const audioPath = path.join(outputDir, `scene-${index.toString()}.mp3`);
-  const t = transitions?.at(index) ?? transition;
+  const t = transitions ? transitions.at(index) : transition;
 
   const scene = {
     video,
@@ -107,7 +118,7 @@ const initScene = async ({ frameFormat, index, outputDir, renderAudio, transitio
       duration: 500,
       params: {},
       ...t,
-    },
+    } as TransitionInput,
     getFrame: (frame: number) => framePattern.replace('%012d', frame.toString().padStart(12, '0')),
   };
 
@@ -149,6 +160,7 @@ const initScene = async ({ frameFormat, index, outputDir, renderAudio, transitio
       outputFileName: audioPath,
       start: previousTransitionDuration / 2000,
       duration: scene.duration / 1000 - previousTransitionDuration / 2000 - scene.transition.duration / 2000,
+      debug: verbose,
     });
 
     sourceAudioPath = audioPath;

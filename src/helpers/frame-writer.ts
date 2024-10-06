@@ -19,11 +19,8 @@ interface Worker {
   encoder: Sharp | null;
 }
 
-export const createFrameWriter = (opts: FrameWriterOpts) => {
-  const { frameFormat = 'raw', gl, width, height } = opts;
-
+export const createFrameWriter = ({ frameFormat = 'raw', gl, width, height }: FrameWriterOpts) => {
   if (!supportedFormats.has(frameFormat)) throw new Error(`frame writer unsupported format "${frameFormat}"`);
-
   let worker: Worker | null = {
     byteArray: new Uint8Array(width * height * 4),
     encoder: null,
@@ -54,7 +51,7 @@ export const createFrameWriter = (opts: FrameWriterOpts) => {
 
   return {
     write: async (filePath: string) => {
-      gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, worker?.byteArray || null);
+      gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, worker?.byteArray ?? null);
 
       if (worker && frameFormat === 'raw') {
         // don't change this to promise
@@ -62,6 +59,7 @@ export const createFrameWriter = (opts: FrameWriterOpts) => {
       } else {
         await new Promise<void>((resolve, reject) => {
           worker?.encoder?.toFile(filePath, (err) => {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             if (err) reject(err);
             resolve();
           });

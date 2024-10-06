@@ -38,7 +38,7 @@ describe('concat function', () => {
       await concat({
         videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
         output: path.join('media', output),
-        transition: { name: 'directionalwipe', duration: 500 },
+        transition: { name: 'directionalwipe', duration: 500, params: {} },
         verbose: true,
       });
 
