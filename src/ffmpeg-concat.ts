@@ -130,3 +130,4 @@ const concat = async ({
 export default concat;
 
 export { default as transitions } from 'gl-transitions';
+export type { Transition, TransitionName } from './types/transitions.js';
