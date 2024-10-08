@@ -1,4 +1,5 @@
 import type { ConcatOptions } from './types/ffmpeg-concat.js';
+import type { Transition } from './ffmpeg-concat.js';
 import fs from 'fs-extra';
 import { temporaryDirectory } from 'tempy';
 import { initFrames } from './helpers/init-frames.js';
@@ -6,8 +7,9 @@ import { renderFrames } from './helpers/render-frames.js';
 import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
 import rmrf from 'rmrf';
+import untypedTransitions from 'gl-transitions';
 
-const concat = async ({
+export const concat = async ({
   args,
   log,
   concurrency = 4,
@@ -127,7 +129,9 @@ const concat = async ({
   }
 };
 
-export default concat;
+// the d.ts is not exported so we have to force the type for the transitions.
 
-export { default as transitions } from 'gl-transitions';
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+export const transitions = untypedTransitions as Transition[];
+
 export type { Transition, TransitionName } from './types/transitions.js';

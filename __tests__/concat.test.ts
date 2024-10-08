@@ -2,7 +2,7 @@
 import { describe, it, jest } from '@jest/globals';
 import path from 'node:path';
 import os from 'node:os';
-import concat from '../src/ffmpeg-concat.js';
+import { concat } from '../src/ffmpeg-concat.js';
 
 const isMac = os.platform() === 'darwin';
 const getFile = (file: string) => path.join(process.cwd(), file);

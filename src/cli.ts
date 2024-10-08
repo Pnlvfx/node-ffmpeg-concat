@@ -1,5 +1,5 @@
 import coraline from 'coraline';
-import concat from './ffmpeg-concat.js';
+import { concat } from './ffmpeg-concat.js';
 import os from 'node:os';
 import path from 'node:path';
 
