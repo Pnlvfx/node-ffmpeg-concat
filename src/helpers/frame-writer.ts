@@ -1,8 +1,8 @@
 /* eslint-disable unicorn/no-null */
 
+import type { FrameFormat } from '../types/ffmpeg-concat.js';
 import fs from 'node:fs';
 import sharp, { type Sharp } from 'sharp';
-import { FrameFormat } from '../types/ffmpeg-concat.js';
 import GL from 'gl';
 
 const supportedFormats = new Set(['png', 'jpg', 'raw']);

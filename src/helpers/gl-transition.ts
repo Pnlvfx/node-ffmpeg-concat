@@ -1,4 +1,4 @@
-import type { ParamsTypes, TransitionParams } from 'gl-transitions';
+import type { ParamsTypes, TransitionParams } from '../types/transitions.js';
 import createShader from 'gl-shader';
 
 interface TransitionObjectLike {
@@ -68,7 +68,8 @@ const createTransition = (gl: WebGLRenderingContext, transition: TransitionObjec
           if (!value) {
             // eslint-disable-next-line no-console
             console.warn('uniform[' + key + ']: A texture MUST be defined for uniform sampler2D of a texture');
-          } else if (typeof value === 'object' && typeof value.bind === 'function') {
+          } else if (typeof value === 'object' && 'bind' in value && typeof value.bind === 'function') {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
             shader.uniforms[key] = value.bind(unit++);
           } else {
             throw new TypeError('uniform[' + key + ']: A gl-texture2d API-like object was expected');

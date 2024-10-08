@@ -1,4 +1,4 @@
-import type { Theme } from '../types/internal.js';
+import type { Theme } from './init-frames.js';
 import type { FrameFormat } from '../types/ffmpeg-concat.js';
 import { type FrameWriter, createFrameWriter } from './frame-writer.js';
 import GL from 'gl';

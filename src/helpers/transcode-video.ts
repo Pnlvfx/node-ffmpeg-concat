@@ -1,5 +1,5 @@
 import type { Log } from '../types/ffmpeg-concat.js';
-import type { Theme } from '../types/internal.js';
+import type { Theme } from './init-frames.js';
 import { ffmpegOnProgress, type ProgressFunction } from './on-progress.js';
 import ffmpeg from 'fluent-ffmpeg';
 

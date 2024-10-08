@@ -1,4 +1,4 @@
-import type { TransitionName, TransitionParams } from 'gl-transitions';
+import type { TransitionName, TransitionParams } from './transitions.js';
 
 export type FrameFormat = 'jpg' | 'png' | 'raw';
 

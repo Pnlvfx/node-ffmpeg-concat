@@ -1,8 +1,9 @@
+import type { TransitionName, TransitionParams } from '../types/transitions.js';
 import createBuffer from 'gl-buffer';
 import createTexture from 'gl-texture2d';
 import { getPixels } from './get-pixels.js';
 import GL from 'gl';
-import transitions, { type TransitionParams, type TransitionName } from 'gl-transitions';
+import transitions from 'gl-transitions';
 import createTransition, { type ResizeMode } from './gl-transition.js';
 
 export interface TransitionOpts {

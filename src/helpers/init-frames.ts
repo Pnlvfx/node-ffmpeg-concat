@@ -8,6 +8,8 @@ import { extractAudio } from './extract-audio.js';
 
 export type Frame = Awaited<ReturnType<typeof initFrames>>['frames'][0];
 
+export type Theme = Awaited<ReturnType<typeof initFrames>>['theme'];
+
 export const initFrames = async ({
   concurrency,
   videos,

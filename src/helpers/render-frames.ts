@@ -1,7 +1,6 @@
 import type { FrameFormat } from '../types/ffmpeg-concat.js';
-import type { Theme } from '../types/internal.js';
 import type { ProgressFunction } from './on-progress.js';
-import type { Frame } from './init-frames.js';
+import type { Frame, Theme } from './init-frames.js';
 import { type Context, createContext } from './context.js';
 import fs from 'fs-extra';
 import path from 'node:path';
