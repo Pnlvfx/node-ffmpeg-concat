@@ -1,7 +1,7 @@
 {
   "name": "node-ffmpeg-concat",
   "description": "Concats a list of videos together using ffmpeg with sexy OpenGL transitions.",
-  "version": "2024.10.9",
+  "version": "2024.10.10",
   "author": {
     "email": "simonegauli@gmail.com",
     "name": "Simone Gauli"
@@ -77,7 +77,7 @@
     "@types/gl-texture2d": "^2.1.6",
     "@types/hh-mm-ss": "^1.2.3",
     "@types/node": "^22.7.5",
-    "async-ffmpeg": "github:Pnlvfx/async-ffmpeg",
+    "async-ffmpeg": "^2024.10.8",
     "coraline": "github:Pnlvfx/coraline",
     "eslint": "^9.12.0",
     "eslint-plugin-sonarjs": "^2.0.3",
@@ -94,7 +94,7 @@
     "typescript-eslint": "^8.8.1"
   },
   "peerDependencies": {
-    "async-ffmpeg": "*",
+    "async-ffmpeg": "^2024.10.8",
     "fluent-ffmpeg": "*",
     "sharp": "*"
   }

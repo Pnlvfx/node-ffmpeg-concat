@@ -1,5 +1,5 @@
 import type { InitFramesOptions, InitSceneOptions, TransitionInput } from '../types/ffmpeg-concat.js';
-import ffmpeg from 'async-ffmpeg';
+import { ffprobe } from 'async-ffmpeg';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import pMap from 'p-map';
@@ -96,7 +96,7 @@ export const initFrames = async ({
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const initScene = async ({ frameFormat, index, outputDir, renderAudio, transition, transitions, verbose, videos, video }: InitSceneOptions) => {
-  const probe = await ffmpeg.ffprobe(video);
+  const probe = await ffprobe(video);
   const format = probe.format.format_name ?? 'unknown';
   const videoStream = probe.streams.at(0);
   if (!videoStream) throw new Error(`Unsupported input video format "${format}": ${video}`);

@@ -1,4 +1,4 @@
-import ffmpeg from 'async-ffmpeg';
+import { ffmpeg } from 'async-ffmpeg';
 
 interface ExtractAudioOpts {
   videoPath: string;
