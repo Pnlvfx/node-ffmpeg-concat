@@ -39,7 +39,7 @@
     "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
     "dev": "tsc -p tsconfig.build.json -w & node --watch ./dist/esm/cli.js",
     "unused": "tsx ./tools/unused.ts",
-    "test": "rimraf coverage && jest --coverage",
+    "test": "rimraf coverage && NODE_OPTIONS=--experimental-vm-modules jest --verbose --coverage",
     "lint": "eslint",
     "build": "rimraf dist && eslint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
     "build:esm": "tsc -p tsconfig.build.json",
