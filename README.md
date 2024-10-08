@@ -83,7 +83,7 @@ Node.js versions 10.13.0 and up to node 20.3, for now, are supported. Note (**ma
 ## Usage
 
 ```js
-import concat from 'node-ffmpeg-concat';
+import { concat } from 'node-ffmpeg-concat';
 
 // concat 3 mp4s together using 2 500ms directionalWipe transitions
 await concat({
