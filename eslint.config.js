@@ -63,10 +63,6 @@ export default tseslint.config(
       'sonarjs/sonar-prefer-optional-chain': 'off',
       '@typescript-eslint/no-empty-function': 'off',
       'sonarjs/no-redundant-type-constituents': 'off',
-
-      // enable back when sonar fix it
-      'sonarjs/sonar-no-fallthrough': 'off',
-      'sonarjs/pluginRules-of-hooks': 'off',
     },
   },
   {
