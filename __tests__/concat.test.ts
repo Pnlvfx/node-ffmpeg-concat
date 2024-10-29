@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-commented-code */
 import { describe, it, jest } from '@jest/globals';
 import path from 'node:path';
 import os from 'node:os';
