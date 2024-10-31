@@ -1,6 +1,5 @@
 import type { Writable } from 'node:stream';
 import fluent from 'fluent-ffmpeg';
-import { ffmpeg } from 'async-ffmpeg';
 
 interface ExtractVideoFramesOpts {
   videoPath: string;
@@ -8,7 +7,7 @@ interface ExtractVideoFramesOpts {
   verbose?: boolean;
 }
 
-export const extractVideoFrames = async ({ videoPath, framePattern, verbose = false }: ExtractVideoFramesOpts) => {
+export const extractVideoFrames = async ({ videoPath, framePattern, verbose }: ExtractVideoFramesOpts) => {
   // await ffmpeg({ input: videoPath });
   return new Promise((resolve, reject) => {
     const cmd = fluent(videoPath)

@@ -76,7 +76,7 @@
     "@types/gl-shader": "^4.2.5",
     "@types/gl-texture2d": "^2.1.6",
     "@types/hh-mm-ss": "^1.2.3",
-    "@types/node": "^22.8.4",
+    "@types/node": "^22.8.5",
     "async-ffmpeg": "^2024.10.29",
     "coraline": "github:Pnlvfx/coraline",
     "eslint": "^9.13.0",
