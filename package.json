@@ -67,7 +67,7 @@
     "tempy": "^3.1.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
+    "@eslint/js": "^9.14.0",
     "@types/eslint__js": "^8.42.3",
     "@types/fluent-ffmpeg": "^2.1.27",
     "@types/fs-extra": "^11.0.4",
@@ -76,10 +76,10 @@
     "@types/gl-shader": "^4.2.5",
     "@types/gl-texture2d": "^2.1.6",
     "@types/hh-mm-ss": "^1.2.3",
-    "@types/node": "^22.8.5",
+    "@types/node": "^22.8.6",
     "async-ffmpeg": "^2024.10.29",
     "coraline": "github:Pnlvfx/coraline",
-    "eslint": "^9.13.0",
+    "eslint": "^9.14.0",
     "eslint-plugin-sonarjs": "^2.0.4",
     "eslint-plugin-unicorn": "^56.0.0",
     "fluent-ffmpeg": "^2.1.3",
