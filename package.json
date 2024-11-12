@@ -77,7 +77,7 @@
     "@types/gl-texture2d": "^2.1.6",
     "@types/hh-mm-ss": "^1.2.3",
     "@types/node": "^22.9.0",
-    "async-ffmpeg": "^2024.11.6",
+    "async-ffmpeg": "^2024.11.9",
     "coraline": "github:Pnlvfx/coraline",
     "eslint": "^9.14.0",
     "eslint-plugin-sonarjs": "^2.0.4",
@@ -92,7 +92,7 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.13.0"
+    "typescript-eslint": "^8.14.0"
   },
   "peerDependencies": {
     "async-ffmpeg": "^2024.10.8",
