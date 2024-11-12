@@ -1,13 +1,16 @@
 import { describe, it, jest } from '@jest/globals';
+import path from 'node:path';
+import os from 'node:os';
+import { concat } from '../src/ffmpeg-concat.js';
 
-// const isMac = os.platform() === 'darwin';
-// const getFile = (file: string) => path.join(process.cwd(), file);
-// const output = isMac ? 'example_mac.mp4' : 'example_linux.mp4';
+const isMac = os.platform() === 'darwin';
+const getFile = (file: string) => path.join(process.cwd(), file);
+const output = isMac ? 'example_mac.mp4' : 'example_linux.mp4';
 
 describe('concat function', () => {
   it(
     'should concatenate videos successfully',
-    () => {
+    async () => {
       const mockEnsureDirSync = jest.fn();
       // const mockInitFrames = jest.fn(() => Promise.resolve({ frames: [], scenes: [], theme: {} }));
       // const mockRenderFrames = jest.fn(() => Promise.resolve('framePattern'));
@@ -31,11 +34,11 @@ describe('concat function', () => {
       //   transcodeVideo: mockTranscodeVideo,
       // }));
 
-      // await concat({
-      //   videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
-      //   output: path.join('media', output),
-      //   transition: { name: 'directionalwipe', duration: 500, params: {} },
-      // });
+      await concat({
+        videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
+        output: path.join('media', output),
+        transition: { name: 'directionalwipe', duration: 500, params: {} },
+      });
 
       // Perform assertions to ensure mock functions were called as expected
       // expect(mockInitFrames).toHaveBeenCalled();
