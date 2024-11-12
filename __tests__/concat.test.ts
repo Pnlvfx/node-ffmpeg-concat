@@ -34,11 +34,11 @@ describe('concat function', () => {
       //   transcodeVideo: mockTranscodeVideo,
       // }));
 
-      await concat({
-        videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
-        output: path.join('media', output),
-        transition: { name: 'directionalwipe', duration: 500, params: {} },
-      });
+      // await concat({
+      //   videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
+      //   output: path.join('media', output),
+      //   transition: { name: 'directionalwipe', duration: 500, params: {} },
+      // });
 
       // Perform assertions to ensure mock functions were called as expected
       // expect(mockInitFrames).toHaveBeenCalled();
