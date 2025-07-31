@@ -1,22 +1,14 @@
 {
   "name": "node-ffmpeg-concat",
   "description": "Concats a list of videos together using ffmpeg with sexy OpenGL transitions.",
-  "version": "2024.11.13",
+  "version": "2025.7.31",
   "author": {
     "email": "simonegauli@gmail.com",
     "name": "Simone Gauli"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pnlvfx/node-ffmpeg-concat.git"
-  },
-  "license": "MIT",
-  "type": "module",
-  "main": "./dist/cjs/ffmpeg-concat.js",
-  "module": "./dist/esm/ffmpeg-concat.js",
-  "types": "./dist/esm/ffmpeg-concat.d.ts",
-  "engines": {
-    "node": ">=14"
+    "url": "https://github.com/Pnlvfx/node-ffmpeg-concat.git"
   },
   "keywords": [
     "ffmpeg",
@@ -29,14 +21,18 @@
     "concatenate",
     "video"
   ],
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/ffmpeg-concat.js",
+  "module": "./dist/ffmpeg-concat.js",
+  "types": "./dist/ffmpeg-concat.d.ts",
   "exports": {
-    "types": "./dist/esm/ffmpeg-concat.d.ts",
-    "import": "./dist/esm/ffmpeg-concat.js",
-    "require": "./dist/cjs/ffmpeg-concat.js"
+    "types": "./dist/ffmpeg-concat.d.ts",
+    "import": "./dist/ffmpeg-concat.js",
+    "require": "./dist/ffmpeg-concat.js"
   },
   "scripts": {
-    "tsc": "tsc --noEmit true",
-    "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
+    "tsc": "tsc --noEmit",
     "dev": "tsc -p tsconfig.build.json -w & node --watch ./dist/esm/cli.js",
     "unused": "tsx ./tools/unused.ts",
     "test": "rimraf coverage && NODE_OPTIONS=--experimental-vm-modules jest --verbose --coverage",
@@ -99,6 +95,5 @@
     "async-ffmpeg": "^2024.10.8",
     "fluent-ffmpeg": "*",
     "sharp": "*"
-  },
-  "packageManager": "pnpm@10.0.0-alpha.0+sha512.856941ef22665d2f3e41c04e8d86ed757ef057fb2bc35011698bfa988ef5817cc1cdd28bb883e7f23f0568c75de5544d4750211d4276b9ba6d55369eb207a549"
+  }
 }
