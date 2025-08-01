@@ -3,9 +3,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { concat } from '../src/ffmpeg-concat.js';
 
-const isMac = os.platform() === 'darwin';
 const getFile = (file: string) => path.join(process.cwd(), file);
-const output = isMac ? 'example_mac.mp4' : 'example_linux.mp4';
 
 describe('concat function', () => {
   it(
@@ -36,7 +34,7 @@ describe('concat function', () => {
 
       await concat({
         videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
-        output: path.join('media', output),
+        output: path.join('media', `example_${os.platform()}.mp4`),
         transition: { name: 'directionalwipe', duration: 500, params: {} },
       });
 

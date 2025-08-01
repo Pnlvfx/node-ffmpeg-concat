@@ -1,6 +1,6 @@
-import { findUnusedExports } from 'coraline';
+import { findUnusedExports } from '@goatjs/ts-unused-exports';
 
-const unused = findUnusedExports({
+const unused = await findUnusedExports({
   ignoreFiles: ['ffmpeg-concat.ts', 'eslint.config.js', 'jest.config.ts'],
   ignoreVars: [],
 });

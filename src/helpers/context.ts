@@ -2,7 +2,7 @@ import type { Theme } from './init-frames.js';
 import type { FrameFormat } from '../types/ffmpeg-concat.js';
 import { type FrameWriter, createFrameWriter } from './frame-writer.js';
 import GL from 'gl';
-import { getTransition, GLTransition, TransitionOpts } from './transition.js';
+import { getTransition, type GLTransition, type TransitionOpts } from './transition.js';
 
 interface ContextOpts {
   frameFormat: FrameFormat;
