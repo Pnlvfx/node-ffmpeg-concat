@@ -34,7 +34,7 @@
   "scripts": {
     "tsc": "tsc --noEmit",
     "unused": "tsx ./tools/unused.ts",
-    "test": "rimraf coverage && jest --verbose --coverage",
+    "test": "rimraf coverage && yarn node --experimental-vm-modules $(yarn bin jest) --verbose --coverage",
     "lint": "eslint",
     "dev": "tsc -p tsconfig.build.json -w & node --watch ./dist/esm/cli.js",
     "build": "rimraf dist && eslint && tsc -p tsconfig.build.json",
