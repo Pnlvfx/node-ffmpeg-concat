@@ -40,7 +40,7 @@
     "build": "rimraf dist && eslint && tsc -p tsconfig.build.json",
     "prepare": "husky",
     "prepack": "yarn build",
-    "prepublishOnly": "npm run test && eslint",
+    "prepublishOnly": "yarn test && eslint",
     "update": "yarn upgrade-interactive"
   },
   "files": [

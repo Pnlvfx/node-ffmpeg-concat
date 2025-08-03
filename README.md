@@ -17,13 +17,11 @@ This is a reimagined version of the original `ffmpeg-concat` package, designed t
 Noteworthy Features:
 
 - Extended feature set for more versatile video concatenation and manipulation.
-- Full compatibility with both CommonJS (cjs) and ECMAScript Modules (esm), catering to various project setups and preferences.
+- Full ECMAScript Modules (esm)
 
 Compatibility Note:
 
 - The package includes the 'gl' dependency, which is crucial for its functionality.
-- Currently, due to limitations in the 'gl' package support, there are compatibility issues with Node.js version 20.
-- Therefore, Node.js version 19 is the highest version guaranteed to work seamlessly with this package.
 
 ## Intro
 
@@ -33,28 +31,30 @@ Compatibility Note:
 
 **This module and CLI make it easy to concat videos together using gl-transitions.**
 
+## Prerequisites
+
+This module requires [ffmpeg](http://ffmpeg.org/) to be installed.
+
+**IMPORTANT**: This package uses the 'gl' dependency which requires native compilation. You must follow the [node-gyp installation guide](https://github.com/nodejs/node-gyp#installation) for your system before installing this package.
+
 ## Install
 
 This module requires [ffmpeg](http://ffmpeg.org/) to be installed.
 
-We also decide to make sharp as a peer dependency as a lot of projects are using it so make sure to install it before proceeding:
-
 ```bash
-npm install --save sharp
+npm install sharp async-ffmpeg fluent-ffmpeg
 ```
 
 ```bash
-npm install --save node-ffmpeg-concat
+npm install node-ffmpeg-concat
 
 # or if you want to use the CLI
 npm install -g -node-ffmpeg-concat
 ```
 
-WARNING: The CLI is not supported in this version yet, it will be implemented soon.
+WARNING: The CLI is not supported in this version yet, it will be implemented soon. (I'm considering using another package to avoid adding more dependencies here, please let me know if you need it and I will implement it.)
 
 This package runs on Linux, macOS, and Windows.
-
-Node.js versions 10.13.0 and up to node 20.3, for now, are supported. Note (**macOS only**): due to an inadvertant low-level breaking change in libuv's process handling code, OpenGL [is not supported](https://github.com/stackgl/headless-gl#supported-platforms-and-nodejs-versions) when running Node.js version 12.13.1 through to 13.6.0 on macOS. A fix has been released in Node.js version 13.7.0. A fix for 12.x is pending. Other platforms are unaffected.
 
 ## CLI
 
