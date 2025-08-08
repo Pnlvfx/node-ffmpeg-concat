@@ -5578,8 +5578,8 @@ __metadata:
     tsx: "npm:^4.20.3"
     typescript: "npm:^5.9.2"
   peerDependencies:
-    async-ffmpeg: "*"
-    fluent-ffmpeg: "*"
+    async-ffmpeg: ^2025.7.31
+    fluent-ffmpeg: ^2.1.3
     sharp: "*"
   languageName: unknown
   linkType: soft

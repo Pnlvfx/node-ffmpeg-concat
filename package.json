@@ -36,7 +36,7 @@
     "unused": "tsx tools/unused.ts",
     "test": "rimraf coverage && yarn node --experimental-vm-modules $(yarn bin jest) --verbose --coverage",
     "lint": "eslint",
-    "dev": "tsc -p tsconfig.build.json -w & node --watch ./dist/esm/cli.js",
+    "dev": "tsx --no-cache --watch tools/cli.ts",
     "build": "rimraf dist && eslint && tsc -p tsconfig.build.json",
     "prepare": "husky",
     "prepack": "yarn build",
@@ -90,8 +90,8 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "async-ffmpeg": "*",
-    "fluent-ffmpeg": "*",
+    "async-ffmpeg": "^2025.7.31",
+    "fluent-ffmpeg": "^2.1.3",
     "sharp": "*"
   },
   "packageManager": "yarn@4.9.2+sha512.1fc009bc09d13cfd0e19efa44cbfc2b9cf6ca61482725eb35bbc5e257e093ebf4130db6dfe15d604ff4b79efd8e1e8e99b25fa7d0a6197c9f9826358d4d65c3c"
