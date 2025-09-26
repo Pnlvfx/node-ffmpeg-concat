@@ -1,5 +1,5 @@
 import type { InitFramesOptions, InitSceneOptions, TransitionInput } from '../types/ffmpeg-concat.js';
-import { ffprobe } from 'async-ffmpeg';
+import { ffprobe } from 'async-ffmpeg/ffprobe';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import pMap from 'p-map';
