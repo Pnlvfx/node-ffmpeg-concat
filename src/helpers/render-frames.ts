@@ -2,7 +2,7 @@ import type { FrameFormat } from '../types/ffmpeg-concat.js';
 import type { ProgressFunction } from './on-progress.js';
 import type { Frame, Theme } from './init-frames.js';
 import { type Context, createContext } from './context.js';
-import fs from 'fs-extra';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import pMap from 'p-map';
 
@@ -77,7 +77,7 @@ const renderFrame = async ({ ctx, frame, frameFormat, index, onProgress, outputD
 
     await ctx.frameWriter.write(filePath);
   } else {
-    await fs.move(cFramePath, filePath, { overwrite: true });
+    await fs.rename(cFramePath, filePath);
   }
 
   if (index % 16 === 0) {

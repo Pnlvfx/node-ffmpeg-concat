@@ -1,6 +1,5 @@
 import type { ConcatOptions } from './types/ffmpeg-concat.js';
 import type { Transition } from './ffmpeg-concat.js';
-import fs from 'fs-extra';
 import { temporaryDirectory } from 'tempy';
 import { initFrames } from './helpers/init-frames.js';
 import { renderFrames } from './helpers/render-frames.js';
@@ -8,6 +7,7 @@ import { transcodeVideo } from './helpers/transcode-video.js';
 import { renderAudio } from './helpers/render-audio.js';
 import rmrf from 'rmrf';
 import untypedTransitions from 'gl-transitions';
+import fs from 'node:fs/promises';
 
 export const concat = async ({
   args,
@@ -24,8 +24,12 @@ export const concat = async ({
   verbose = false,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 }: ConcatOptions) => {
-  if (tempDir) await fs.ensureDir(tempDir);
+  if (tempDir) {
+    await fs.mkdir(tempDir, { recursive: true });
+  }
+
   const temp = tempDir ?? temporaryDirectory();
+
   if (verbose) {
     // eslint-disable-next-line no-console
     console.time('ffmpeg-concat');

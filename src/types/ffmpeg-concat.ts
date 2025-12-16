@@ -31,7 +31,7 @@ interface InitOptions {
   transitions?: readonly TransitionInput[];
   frameFormat: FrameFormat;
   outputDir: string;
-  renderAudio: boolean;
+  renderAudio?: boolean;
   verbose?: boolean;
 }
 

@@ -7,7 +7,7 @@ import transitions from 'gl-transitions';
 import createTransition, { type ResizeMode } from './gl-transition.js';
 
 export interface TransitionOpts {
-  name: TransitionName;
+  name?: TransitionName;
   resizeMode?: ResizeMode;
   gl: WebGLRenderingContext & GL.StackGLExtension;
 }

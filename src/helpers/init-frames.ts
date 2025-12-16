@@ -6,10 +6,6 @@ import pMap from 'p-map';
 import { extractVideoFrames } from './extract-video-frames.js';
 import { extractAudio } from './extract-audio.js';
 
-export type Frame = Awaited<ReturnType<typeof initFrames>>['frames'][0];
-
-export type Theme = Awaited<ReturnType<typeof initFrames>>['theme'];
-
 export const initFrames = async ({
   concurrency,
   videos,
@@ -100,7 +96,13 @@ const initScene = async ({ frameFormat, index, outputDir, renderAudio, transitio
   const format = probe.format.format_name ?? 'unknown';
   const videoStream = probe.streams.at(0);
   if (!videoStream) throw new Error(`Unsupported input video format "${format}": ${video}`);
-  if (!videoStream.width || !videoStream.height || !videoStream.duration || !videoStream.nb_frames || !videoStream.avg_frame_rate) {
+  if (
+    videoStream.width === undefined ||
+    videoStream.height === undefined ||
+    !videoStream.duration ||
+    !videoStream.nb_frames ||
+    !videoStream.avg_frame_rate
+  ) {
     throw new Error('Invalid input video, probably it is corrupt!');
   }
   const framePattern = path.join(outputDir, `scene-${index.toString()}-%012d.${frameFormat}`);
@@ -170,3 +172,6 @@ const initScene = async ({ frameFormat, index, outputDir, renderAudio, transitio
 
   return { ...scene, sourceAudioPath };
 };
+
+export type Frame = Awaited<ReturnType<typeof initFrames>>['frames'][0];
+export type Theme = Awaited<ReturnType<typeof initFrames>>['theme'];

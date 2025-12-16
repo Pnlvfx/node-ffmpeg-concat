@@ -40,7 +40,7 @@ void main(){gl_FragColor=transition(_uv);}`;
 };
 
 const createTransition = (gl: WebGLRenderingContext, transition: TransitionObjectLike, options: Options = {}) => {
-  const { resizeMode } = { resizeMode: 'cover' as const, ...options };
+  const { resizeMode } = { resizeMode: 'cover', ...options } as const;
   const shader = createShader(gl, VERT, makeFrag(transition.glsl, resizeMode));
   shader.bind();
   shader.attributes['_p']?.pointer();
@@ -65,6 +65,7 @@ const createTransition = (gl: WebGLRenderingContext, transition: TransitionObjec
       for (const key in transition.paramsTypes) {
         const value = key in params ? params[key] : transition.defaultParams[key];
         if (transition.paramsTypes[key] === 'sampler2D') {
+          // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
           if (!value) {
             // eslint-disable-next-line no-console
             console.warn('uniform[' + key + ']: A texture MUST be defined for uniform sampler2D of a texture');

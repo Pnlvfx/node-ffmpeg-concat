@@ -1,4 +1,4 @@
-import { describe, it, jest } from '@jest/globals';
+import { describe, it } from '@jest/globals';
 import path from 'node:path';
 import os from 'node:os';
 import { concat } from '../src/ffmpeg-concat.js';
@@ -9,11 +9,6 @@ describe('concat function', () => {
   it(
     'should concatenate videos successfully',
     async () => {
-      const mockEnsureDirSync = jest.fn();
-      jest.mock('fs-extra', () => ({
-        ensureDirSync: mockEnsureDirSync,
-      }));
-
       await concat({
         videos: [getFile('media/0.mp4'), getFile('media/0a.mp4'), getFile('media/1.mp4'), getFile('media/2.mp4')],
         output: path.join('media', `example_${os.platform()}.mp4`),

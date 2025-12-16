@@ -1,3 +1,4 @@
-import { goateslint } from '@goatjs/node-eslint';
+import { defineConfig, globalIgnores } from '@eslint/config-helpers';
+import { nodeConfigs } from '@goatjs/node-eslint';
 
-export default goateslint({ ignores: ['dist', '.yarn', 'coverage'], tsconfigRootDir: import.meta.dirname });
+export default defineConfig([globalIgnores(['dist', '.yarn']), ...nodeConfigs({ tsconfigRootDir: import.meta.dirname })]);

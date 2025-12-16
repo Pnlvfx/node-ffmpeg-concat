@@ -1,5 +1,5 @@
 import type { Log } from '../types/ffmpeg-concat.js';
-import fs from 'fs-extra';
+import fs from 'node:fs/promises';
 import ffmpeg from 'fluent-ffmpeg';
 import path from 'node:path';
 
@@ -14,7 +14,7 @@ export const renderAudio = async ({ log, audioScenes, outputDir, fileName }: Ren
   const concatListPath = path.join(outputDir, 'audioConcat.txt');
   const toConcat = audioScenes.map((audio) => `file '${audio}'`);
   const outputFileName = path.join(outputDir, fileName);
-  await fs.outputFile(concatListPath, toConcat.join('\n'));
+  await fs.writeFile(concatListPath, toConcat.join('\n'));
   return new Promise<string>((resolve, reject) => {
     if (log) {
       log(`created ${concatListPath}`);

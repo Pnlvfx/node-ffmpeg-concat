@@ -8,7 +8,7 @@ import GL from 'gl';
 const supportedFormats = new Set(['png', 'jpg', 'raw']);
 
 interface FrameWriterOpts {
-  frameFormat: FrameFormat;
+  frameFormat?: FrameFormat;
   gl: WebGLRenderingContext & GL.StackGLExtension;
   width: number;
   height: number;
@@ -59,7 +59,7 @@ export const createFrameWriter = ({ frameFormat = 'raw', gl, width, height }: Fr
       } else {
         await new Promise<void>((resolve, reject) => {
           worker?.encoder?.toFile(filePath, (err) => {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
             if (err) reject(err);
             resolve();
           });
