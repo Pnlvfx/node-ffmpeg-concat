@@ -708,10 +708,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@goatjs/core@npm:1.54.0":
-  version: 1.54.0
-  resolution: "@goatjs/core@npm:1.54.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Fcore%2F-%2F%40goatjs%2Fcore-1.54.0.tgz"
-  checksum: 10c0/e4300f3dc39879756fae81c58ff67b0c6f6155d4fd3faa783f0ec35975aac97011539e6dd0f4fe3657a5d28e52f0dbb0a3375a95a8564a6cd7f485fe72d0e246
+"@goatjs/core@npm:1.67.0":
+  version: 1.67.0
+  resolution: "@goatjs/core@npm:1.67.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Fcore%2F-%2F%40goatjs%2Fcore-1.67.0.tgz"
+  checksum: 10c0/13414cd7e66ab483738c456b9a49da58e39d504010db4f3e8cf65d0174bfab2bb2e87c942c488c291b0d8268a784ceef83de6ab3f53ffeef12aa3a5e09d21d22
   languageName: node
   linkType: hard
 
@@ -725,48 +725,48 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@goatjs/node@npm:1.54.0, @goatjs/node@npm:^1.54.0":
-  version: 1.54.0
-  resolution: "@goatjs/node@npm:1.54.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Fnode%2F-%2F%40goatjs%2Fnode-1.54.0.tgz"
+"@goatjs/node@npm:1.67.0, @goatjs/node@npm:^1.67.0":
+  version: 1.67.0
+  resolution: "@goatjs/node@npm:1.67.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Fnode%2F-%2F%40goatjs%2Fnode-1.67.0.tgz"
   dependencies:
-    "@goatjs/core": "npm:1.54.0"
+    "@goatjs/core": "npm:1.67.0"
     sanitize-filename: "npm:1.6.3"
   peerDependencies:
     prettier: "*"
   peerDependenciesMeta:
     prettier:
       optional: true
-  checksum: 10c0/631abf6a0436a472d12518d06b9a40a682c724c184db2c7c66f0233e554f63cc9c93388233f7d89ab1d200858ac5ce118c7a3390c4c38c28ee5d92a59659c24c
+  checksum: 10c0/36968435a9b15b6efc94bb4e5cb4feccb7953b131f3ec7db6ab1a7ccb47f9e92f9cc7fe6be7506dd48282dcf2a20665bac55802ca64afc1472254fc7bd2e920a
   languageName: node
   linkType: hard
 
-"@goatjs/rimraf@npm:^1.54.0":
-  version: 1.54.0
-  resolution: "@goatjs/rimraf@npm:1.54.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Frimraf%2F-%2F%40goatjs%2Frimraf-1.54.0.tgz"
+"@goatjs/rimraf@npm:^1.67.0":
+  version: 1.67.0
+  resolution: "@goatjs/rimraf@npm:1.67.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Frimraf%2F-%2F%40goatjs%2Frimraf-1.67.0.tgz"
   bin:
     rimraf: dist/cli/rimraf.js
-  checksum: 10c0/59e86618c70b464488d8f04719d013396145d6f63f4d3e22f06c73c10af92b32df1a8408f44f76029c343054df2d7cffa7d9236db536771168e66c1f4e1f18a4
+  checksum: 10c0/24aa63249096f6bd68580f5a92d58a0496dcdf2212e08e727ab572dcb24bf255f2ea0a389f6ef83d78536012931cf5a6a3d4971414b88737c4ffad28d00027d1
   languageName: node
   linkType: hard
 
-"@goatjs/ts-unused-exports@npm:^1.54.0":
-  version: 1.54.0
-  resolution: "@goatjs/ts-unused-exports@npm:1.54.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Fts-unused-exports%2F-%2F%40goatjs%2Fts-unused-exports-1.54.0.tgz"
+"@goatjs/ts-unused-exports@npm:^1.67.0":
+  version: 1.67.0
+  resolution: "@goatjs/ts-unused-exports@npm:1.67.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Fts-unused-exports%2F-%2F%40goatjs%2Fts-unused-exports-1.67.0.tgz"
   dependencies:
-    "@goatjs/node": "npm:1.54.0"
+    "@goatjs/node": "npm:1.67.0"
     ts-unused-exports: "npm:^11.0.1"
   peerDependencies:
     typescript: "*"
-  checksum: 10c0/6e80d82bae33cd560a79a32b3d5cf6c2f95d2fa659ec9da6240e55c079758d3b769d1307556357f0e8dc6e728376b596abc92c8ef47c4adbb7e40187f72dc6de
+  checksum: 10c0/1a686998b638e53c1e426e157b0336bb2a2e00c0add5fcee11c5ffeda7d23c35aa092474b10f221632d927a5e715a8c41685f9c0b77bd143538383ae6dd0d25e
   languageName: node
   linkType: hard
 
-"@goatjs/typescript-config@npm:^1.54.0":
-  version: 1.54.0
-  resolution: "@goatjs/typescript-config@npm:1.54.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Ftypescript-config%2F-%2F%40goatjs%2Ftypescript-config-1.54.0.tgz"
+"@goatjs/typescript-config@npm:^1.67.0":
+  version: 1.67.0
+  resolution: "@goatjs/typescript-config@npm:1.67.0::__archiveUrl=https%3A%2F%2Feurope-west8-npm.pkg.dev%2Fopen-gto-2%2Fgoat%2F%40goatjs%2Ftypescript-config%2F-%2F%40goatjs%2Ftypescript-config-1.67.0.tgz"
   peerDependencies:
     typescript: "*"
-  checksum: 10c0/9fbf2846babd511a99038be7427d686a09fed95647f3afbbe57c1c83eb022cd54b0055bb198c6f1677db60193561611fcdbe8cd8fabd1618c1e858701a36c443
+  checksum: 10c0/0fdedf67bd39092ab8e4c241af62d0fd0191b27b1b32d95210a38220792dfce582492aebec44ef029d956b143059105a7cf1bc4ab16c51fb21b781162191d792
   languageName: node
   linkType: hard
 
@@ -1659,12 +1659,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^25.0.10":
-  version: 25.0.10
-  resolution: "@types/node@npm:25.0.10"
+"@types/node@npm:*, @types/node@npm:^25.2.0":
+  version: 25.2.0
+  resolution: "@types/node@npm:25.2.0"
   dependencies:
     undici-types: "npm:~7.16.0"
-  checksum: 10c0/9edc3c812b487c32c76eebac7c87acae1f69515a0bc3f6b545806d513eb9e918c3217bf751dc93da39f60e06bf1b0caa92258ef3a6dd6457124b2e761e54f61f
+  checksum: 10c0/89559ea0de5c8c2da051b384f2cd3161012446816e05d18841838f814e57eb1865f000622e903f08d14f5242736063ed4003a4a359730fdd367e35e2122a8fce
   languageName: node
   linkType: hard
 
@@ -4784,18 +4784,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "node-ffmpeg-concat@workspace:."
   dependencies:
-    "@goatjs/node": "npm:^1.54.0"
+    "@goatjs/node": "npm:^1.67.0"
     "@goatjs/node-eslint": "npm:^1.36.0"
-    "@goatjs/rimraf": "npm:^1.54.0"
-    "@goatjs/ts-unused-exports": "npm:^1.54.0"
-    "@goatjs/typescript-config": "npm:^1.54.0"
+    "@goatjs/rimraf": "npm:^1.67.0"
+    "@goatjs/ts-unused-exports": "npm:^1.67.0"
+    "@goatjs/typescript-config": "npm:^1.67.0"
     "@types/fluent-ffmpeg": "npm:^2.1.28"
     "@types/get-pixels": "npm:^3.3.4"
     "@types/gl": "npm:^6.0.5"
     "@types/gl-shader": "npm:^4.2.5"
     "@types/gl-texture2d": "npm:^2.1.6"
     "@types/hh-mm-ss": "npm:^1.2.3"
-    "@types/node": "npm:^25.0.10"
+    "@types/node": "npm:^25.2.0"
     async-ffmpeg: "npm:^2025.8.30"
     eslint: "npm:^9.39.2"
     fluent-ffmpeg: "npm:^2.1.3"
@@ -4813,7 +4813,7 @@ __metadata:
     prettier: "npm:^3.8.1"
     rmrf: "npm:^2.0.4"
     sharp: "npm:^0.34.5"
-    tempy: "npm:^3.1.1"
+    tempy: "npm:^3.2.0"
     ts-jest: "npm:^29.4.6"
     ts-node: "npm:^10.9.2"
     tsx: "npm:^4.21.0"
@@ -5801,15 +5801,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tempy@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "tempy@npm:3.1.1"
+"tempy@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "tempy@npm:3.2.0"
   dependencies:
     is-stream: "npm:^3.0.0"
     temp-dir: "npm:^3.0.0"
     type-fest: "npm:^2.12.2"
     unique-string: "npm:^3.0.0"
-  checksum: 10c0/780b81d466494602dffbc3fe341ae854133cb10f2193f4181aec1496371cac5ccf836f9b3e2ed1582a761dab666c168cda62c025565292863e9cd7e362a66fa8
+  checksum: 10c0/0653c9b36323d2f25e8d24ba32f59e8dd2a9cb49740413516d8a890bb3a4d5885b56652b7231b7cebe4a5441076e8432bd5a03a76ee038c3c1f5fbb24f8cc771
   languageName: node
   linkType: hard
 
