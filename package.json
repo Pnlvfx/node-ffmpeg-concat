@@ -62,23 +62,23 @@
     "tempy": "^3.2.0"
   },
   "devDependencies": {
-    "@goatjs/node": "^1.67.0",
-    "@goatjs/node-eslint": "^1.36.0",
-    "@goatjs/rimraf": "^1.67.0",
-    "@goatjs/ts-unused-exports": "^1.67.0",
-    "@goatjs/typescript-config": "^1.67.0",
+    "@goatjs/node": "^1.72.0",
+    "@goatjs/node-eslint": "^1.47.0",
+    "@goatjs/rimraf": "^1.72.0",
+    "@goatjs/ts-unused-exports": "^1.72.0",
+    "@goatjs/typescript-config": "^1.72.0",
     "@types/fluent-ffmpeg": "^2.1.28",
     "@types/get-pixels": "^3.3.4",
     "@types/gl": "^6.0.5",
     "@types/gl-shader": "^4.2.5",
     "@types/gl-texture2d": "^2.1.6",
     "@types/hh-mm-ss": "^1.2.3",
-    "@types/node": "^25.2.0",
+    "@types/node": "^25.5.0",
     "async-ffmpeg": "^2025.8.30",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.3",
     "fluent-ffmpeg": "^2.1.3",
     "husky": "^9.1.7",
-    "jest": "^30.2.0",
+    "jest": "^30.3.0",
     "prettier": "^3.8.1",
     "sharp": "^0.34.5",
     "ts-jest": "^29.4.6",
@@ -91,5 +91,5 @@
     "fluent-ffmpeg": "*",
     "sharp": "*"
   },
-  "packageManager": "yarn@4.12.0+sha512.f45ab632439a67f8bc759bf32ead036a1f413287b9042726b7cc4818b7b49e14e9423ba49b18f9e06ea4941c1ad062385b1d8760a8d5091a1a31e5f6219afca8"
+  "packageManager": "yarn@4.13.0+sha512.5c20ba010c99815433e5c8453112165e673f1c7948d8d2b267f4b5e52097538658388ebc9f9580656d9b75c5cc996f990f611f99304a2197d4c56d21eea370e7"
 }
