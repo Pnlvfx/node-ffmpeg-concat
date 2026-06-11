@@ -57,6 +57,7 @@ export const initFrames = async ({
 
       if (!frames[cFrame]) {
         const current = Object.assign(scene, { frameStart, numFramesTransition, numFramesPreTransition });
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         const next = frame < numFramesPreTransition ? undefined : (scenes[index + 1] as typeof current);
         frames[cFrame] = {
           current,
@@ -122,7 +123,7 @@ const initScene = async ({ frameFormat, index, outputDir, renderAudio, transitio
       duration: 500,
       params: {},
       ...t,
-    } as TransitionInput,
+    } satisfies TransitionInput,
     getFrame: (frame: number) => framePattern.replace('%012d', frame.toString().padStart(12, '0')),
   };
 

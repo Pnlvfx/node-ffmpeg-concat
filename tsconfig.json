@@ -1,7 +1,7 @@
 {
   "extends": "@goatjs/typescript-config/node-library/tsconfig.json",
-  "include": ["src", "tools", "eslint.config.js", "jest.config.ts", "__tests__"],
-   "compilerOptions": {
+  "include": ["src", "tools", "eslint.config.js", "jest.config.ts", "__tests", "doctor.config.ts"],
+  "compilerOptions": {
     "outDir": "dist"
   }
 }

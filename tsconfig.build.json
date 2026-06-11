@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["eslint.config.js", "jest.config.ts", "__tests__", "tools"],
+  "exclude": ["eslint.config.js", "jest.config.ts", "__tests", "tools", "doctor.config.ts"],
   "compilerOptions": {
     "rootDir": "src"
   }

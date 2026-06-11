@@ -1,15 +1,7 @@
 {
   "name": "node-ffmpeg-concat",
-  "description": "Concats a list of videos together using ffmpeg with sexy OpenGL transitions.",
   "version": "2025.12.16",
-  "author": {
-    "email": "simonegauli@gmail.com",
-    "name": "Simone Gauli"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Pnlvfx/node-ffmpeg-concat.git"
-  },
+  "description": "Concats a list of videos together using ffmpeg with sexy OpenGL transitions.",
   "keywords": [
     "ffmpeg",
     "fluent-ffmpeg",
@@ -21,40 +13,47 @@
     "concatenate",
     "video"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pnlvfx/node-ffmpeg-concat.git"
+  },
   "license": "MIT",
+  "author": {
+    "email": "simonegauli@gmail.com",
+    "name": "Simone Gauli"
+  },
+  "sideEffects": false,
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/ffmpeg-concat.d.ts",
+      "import": "./dist/ffmpeg-concat.js",
+      "require": "./dist/ffmpeg-concat.js"
+    }
+  },
   "main": "./dist/ffmpeg-concat.js",
   "module": "./dist/ffmpeg-concat.js",
   "types": "./dist/ffmpeg-concat.d.ts",
-  "exports": {
-    "types": "./dist/ffmpeg-concat.d.ts",
-    "import": "./dist/ffmpeg-concat.js",
-    "require": "./dist/ffmpeg-concat.js"
-  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "tsc": "tsc --noEmit",
-    "unused": "tsx tools/unused.ts",
-    "test": "rimraf coverage && yarn node --experimental-vm-modules $(yarn bin jest) --verbose --coverage",
+    "build": "rimraf dist && tsc -p tsconfig.build.json && eslint",
+    "dev": "node tools/cli.ts",
     "lint": "eslint",
-    "dev": "tsx --no-cache --watch tools/cli.ts",
-    "build": "rimraf dist && eslint && tsc -p tsconfig.build.json",
-    "prepare": "husky",
     "prepack": "yarn build",
     "prepublishOnly": "yarn test && eslint",
+    "test": "rimraf coverage && yarn node --experimental-vm-modules $(yarn bin jest) --verbose --coverage",
+    "tsc": "tsc --noEmit",
     "update": "yarn upgrade-interactive"
   },
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ],
   "dependencies": {
     "get-pixels": "github:scijs/get-pixels",
     "gl": "^9.0.0-rc.9",
     "gl-buffer": "^2.1.2",
     "gl-shader": "^4.3.1",
     "gl-texture2d": "^2.1.0",
-    "gl-transitions": "^1.50.0",
+    "gl-transitions": "^1.68.0",
     "hh-mm-ss": "^1.2.0",
     "ndarray": "^1.0.19",
     "p-map": "^7.0.4",
@@ -62,34 +61,34 @@
     "tempy": "^3.2.0"
   },
   "devDependencies": {
-    "@goatjs/node": "^1.78.0",
-    "@goatjs/node-eslint": "^2.1.0",
-    "@goatjs/rimraf": "^1.78.0",
-    "@goatjs/ts-unused-exports": "^1.78.0",
-    "@goatjs/typescript-config": "^1.78.0",
+    "@eslint/config-helpers": "^0.6.0",
+    "@goatjs/dbz": "^2.37.0",
+    "@goatjs/doctor": "^2.41.0",
+    "@goatjs/node-eslint": "^2.31.0",
+    "@goatjs/rimraf": "^2.11.0",
+    "@goatjs/typescript-config": "^2.2.0",
+    "@jest/globals": "^30.4.1",
     "@types/fluent-ffmpeg": "^2.1.28",
     "@types/get-pixels": "^3.3.4",
     "@types/gl": "^6.0.5",
     "@types/gl-shader": "^4.2.5",
     "@types/gl-texture2d": "^2.1.6",
     "@types/hh-mm-ss": "^1.2.3",
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.9.2",
     "async-ffmpeg": "^2025.8.30",
-    "eslint": "^10.1.0",
+    "eslint": "^10.4.1",
     "fluent-ffmpeg": "^2.1.3",
-    "husky": "^9.1.7",
-    "jest": "^30.3.0",
-    "prettier": "^3.8.1",
+    "jest": "^30.4.2",
+    "prettier": "^3.8.4",
     "sharp": "^0.34.5",
-    "ts-jest": "^29.4.6",
+    "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "async-ffmpeg": "^2025.7.31",
     "fluent-ffmpeg": "*",
     "sharp": "*"
   },
-  "packageManager": "yarn@4.13.0+sha512.5c20ba010c99815433e5c8453112165e673f1c7948d8d2b267f4b5e52097538658388ebc9f9580656d9b75c5cc996f990f611f99304a2197d4c56d21eea370e7"
+  "packageManager": "yarn@4.16.0+sha512.5374c94eb4ef6aa8188fb112f20c1aa6569f248d676c5e576e1fd2a1a4d8d87a96df65d9dfe1c2a0252cbe38bda46cf18d955005b81b43cc7607a5c9d56fd2b6"
 }
