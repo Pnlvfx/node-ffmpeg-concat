@@ -1,6 +1,6 @@
 {
   "name": "node-ffmpeg-concat",
-  "version": "2025.12.16",
+  "version": "2025.13.0",
   "description": "Concats a list of videos together using ffmpeg with sexy OpenGL transitions.",
   "keywords": [
     "ffmpeg",
