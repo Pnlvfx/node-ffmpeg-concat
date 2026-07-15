@@ -75,15 +75,15 @@ export const concat = async ({
       console.time('render-audio');
     }
 
-    let concatAudioFile = audio;
-    if (!audio && audioScenes.length === numberOfScenes) {
-      concatAudioFile = await renderAudio({
-        log,
-        audioScenes,
-        outputDir: temp,
-        fileName: 'audioConcat.mp3',
-      });
-    }
+    const concatAudioFile =
+      !audio && audioScenes.length === numberOfScenes
+        ? await renderAudio({
+            log,
+            audioScenes,
+            outputDir: temp,
+            fileName: 'audioConcat.mp3',
+          })
+        : audio;
 
     if (verbose) {
       // eslint-disable-next-line no-console

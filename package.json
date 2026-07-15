@@ -53,19 +53,19 @@
     "gl-buffer": "^2.1.2",
     "gl-shader": "^4.3.1",
     "gl-texture2d": "^2.1.0",
-    "gl-transitions": "^1.68.0",
+    "gl-transitions": "^1.71.0",
     "hh-mm-ss": "^1.2.0",
     "ndarray": "^1.0.19",
-    "p-map": "^7.0.4",
+    "p-map": "^7.0.5",
     "rmrf": "^2.0.4",
     "tempy": "^3.2.0"
   },
   "devDependencies": {
     "@eslint/config-helpers": "^0.6.0",
-    "@goatjs/dbz": "^2.37.0",
-    "@goatjs/doctor": "^2.41.0",
-    "@goatjs/node-eslint": "^2.31.0",
-    "@goatjs/rimraf": "^2.11.0",
+    "@goatjs/dbz": "^2.56.0",
+    "@goatjs/doctor": "^2.47.0",
+    "@goatjs/node-eslint": "^3.2.0",
+    "@goatjs/rimraf": "^2.12.0",
     "@goatjs/typescript-config": "^2.2.0",
     "@jest/globals": "^30.4.1",
     "@types/fluent-ffmpeg": "^2.1.28",
@@ -74,13 +74,13 @@
     "@types/gl-shader": "^4.2.5",
     "@types/gl-texture2d": "^2.1.6",
     "@types/hh-mm-ss": "^1.2.3",
-    "@types/node": "^25.9.2",
+    "@types/node": "^26.1.1",
     "async-ffmpeg": "^2025.8.30",
-    "eslint": "^10.4.1",
+    "eslint": "^10.7.0",
     "fluent-ffmpeg": "^2.1.3",
     "jest": "^30.4.2",
-    "prettier": "^3.8.4",
-    "sharp": "^0.34.5",
+    "prettier": "^3.9.5",
+    "sharp": "^0.35.3",
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
@@ -90,5 +90,5 @@
     "fluent-ffmpeg": "*",
     "sharp": "*"
   },
-  "packageManager": "yarn@4.16.0+sha512.5374c94eb4ef6aa8188fb112f20c1aa6569f248d676c5e576e1fd2a1a4d8d87a96df65d9dfe1c2a0252cbe38bda46cf18d955005b81b43cc7607a5c9d56fd2b6"
+  "packageManager": "yarn@4.17.1+sha512.ccbfabf7d7b6b32075088be9386fb9a2e00bb6887ef07fa56effabc890a56d53da1ccc4128d62db245fcbd3961b236d75335bdf7d5320ed6eafb7588b7ad4697"
 }
